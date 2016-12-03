@@ -13,7 +13,10 @@ The following concrete steps will be required for successful completion of this 
  4. Integrate forces calculated in #3 to update the velocities in #2. At this point, we should have the minimally viable partical simulator in place. 
  5. Extend prey class for reproduction and predator class for feeding to generate interesting, natural behaviors.
 
-''' References
+#### References
+
 [1] School of fish simulation video: https://www.youtube.com/watch?v=NKhHp7Wfdmk
+
 [2] Schooling fish behavior: https://www.mrl.ucsb.edu/sites/default/files/mrl_docs/ret_attachments/research/KTaylor.pdf
+
 [3] Image: https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg
