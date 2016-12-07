@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <vector>
 
-#include "CMU462.h"
+#include "CMU462/CMU462.h"
 #include "texture.h"
 #include "svg_renderer.h"
 
-#include "matrix3x3.h"
+#include "CMU462/matrix3x3.h"
 
 namespace CMU462 { // CMU462
 

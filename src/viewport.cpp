@@ -1,6 +1,6 @@
 #include "viewport.h"
 
-#include "CMU462.h"
+#include "CMU462/CMU462.h"
 
 #include <iostream>
 using namespace std;

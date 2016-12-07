@@ -1,7 +1,7 @@
 #ifndef CMU462_FISH_H
 #define CMU462_FISH_H
 
-#include "vector2D.h"
+#include "CMU462/vector2D.h"
 #include "svg.h"
 
 namespace CMU462 {

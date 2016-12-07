@@ -1,7 +1,7 @@
 #ifndef CMU462_TEXTURE_H
 #define CMU462_TEXTURE_H
 
-#include "CMU462.h"
+#include "CMU462/CMU462.h"
 
 namespace CMU462 {
 

@@ -1,5 +1,5 @@
 #include "fish.h"
-#include "matrix3x3.h"
+#include "CMU462/matrix3x3.h"
 #include <iostream>
 #include <math.h>
 

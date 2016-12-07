@@ -4,13 +4,13 @@
 #include <map>
 #include <vector>
 
-#include "color.h"
+#include "CMU462/color.h"
 #include "texture.h"
-#include "vector2D.h"
-#include "matrix3x3.h"
+#include "CMU462/vector2D.h"
+#include "CMU462/matrix3x3.h"
 #include "fish.h"
 
-#include "tinyxml2.h"
+#include "CMU462/tinyxml2.h"
 using namespace tinyxml2;
 
 namespace CMU462 {

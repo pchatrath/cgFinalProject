@@ -24,7 +24,8 @@ if(DRAWSVG_BUILD_HARDWARE_RENDERER)
 
 else(DRAWSVG_BUILD_HARDWARE_RENDERER)
 
-  add_library( drawsvg_hdwr STATIC IMPORTED)
+  add_library( drawsvg_hdwr STATIC IMPORTED
+               ${OPENGL_LIBRARIES})
 
   # Import hardware
   if (UNIX)

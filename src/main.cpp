@@ -1,4 +1,4 @@
-#include "CMU462.h"
+#include "CMU462/CMU462.h"
 #include "drawsvg.h"
 
 #include <sys/stat.h>

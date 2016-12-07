@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include "CMU462.h"
+#include "CMU462/CMU462.h"
 #include "svg_renderer.h"
 
 namespace CMU462 {

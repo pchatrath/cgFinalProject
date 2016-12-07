@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "CMU462.h"
+#include "CMU462/CMU462.h"
 #include "svg.h"
 #include "hardware_renderer.h"
 #include "software_renderer.h"

@@ -7,6 +7,8 @@
 
 #include "triangulation.h"
 
+#include "CMU462/CMU462.h"
+
 using namespace std;
 
 namespace CMU462 {
@@ -41,7 +43,7 @@ void HardwareRenderer::leave2DDrawing() {
 }
 
 
-// Implements SoftwareRenderer //
+// Implements HardwareRenderer //
 
 
 void HardwareRenderer::draw_svg( SVG& svg ) {
