@@ -226,15 +226,26 @@ void DrawSVG::cursor_event( float x, float y, unsigned char keys ) {
   
   // translate when left mouse button is held down
   // diff is disabled when panning - it's too slow
-  if (keys & (1 << 2)) {
+
+  SVG* svg = tabs[current_tab];
+
+  for (size_t i=0; i<svg->fish.size(); ++i) { 
+    
+    svg->fish[i].updateFish(1);
+  }
+
+  redraw();
+
+  //if (keys & (1 << 2)) {
   
-    show_diff = false;
+/*    show_diff = false;
     float dx = (x - cursor_x) / width  * tabs[current_tab]->width;
     float dy = (y - cursor_y) / height * tabs[current_tab]->height;
     viewport_imp[current_tab]->update_viewbox(dx, dy, 1);
-    viewport_ref[current_tab]->update_viewbox(dx, dy, 1);
-    redraw();
-  }
+    viewport_ref[current_tab]->update_viewbox(dx, dy, 1);*/
+
+
+  //}
   
   // register new cursor location
   cursor_x = x;

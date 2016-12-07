@@ -8,11 +8,14 @@
 #include "texture.h"
 #include "vector2D.h"
 #include "matrix3x3.h"
+#include "fish.h"
 
 #include "tinyxml2.h"
 using namespace tinyxml2;
 
 namespace CMU462 {
+
+class Fish;
 
 typedef enum e_SVGElementType {
   NONE = 0,
@@ -119,6 +122,7 @@ struct SVG {
   ~SVG();
   float width, height;
   std::vector<SVGElement*> elements;
+  std::vector<Fish> fish;
 
 };
 

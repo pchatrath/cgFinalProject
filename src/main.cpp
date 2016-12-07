@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <iostream>
+#include <fish.h>
 
 using namespace std;
 using namespace CMU462;
@@ -103,6 +104,13 @@ int main( int argc, char** argv ) {
     if (loadPath(drawsvg, argv[1]) < 0) exit(0);
   } else {
     msg("Usage: drawsvg <path to test file or directory>"); exit(0);
+  }
+
+  SVG* svg = drawsvg->tabs[drawsvg->current_tab];
+
+  for (size_t i=0; i<svg->elements.size(); ++i) { 
+    Fish f(svg->elements[i]);
+    svg->fish.push_back(f);
   }
 
   // init viewer

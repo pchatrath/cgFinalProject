@@ -115,6 +115,10 @@ class DrawSVG : public Renderer {
    */
   int getErrorCount( void ) const;
 
+  // Moved tabs to be public
+  // So that SVG elements can be accessed
+  std::vector<SVG*> tabs; size_t current_tab;
+
  private:
 
   /* window size */
@@ -143,7 +147,6 @@ class DrawSVG : public Renderer {
   Sampler2D* sampler_ref;
 
   /* tabs */
-  std::vector<SVG*> tabs; size_t current_tab;
   std::vector<Viewport*> viewport_imp;
   std::vector<Viewport*> viewport_ref;
   

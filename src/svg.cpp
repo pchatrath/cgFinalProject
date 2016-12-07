@@ -1,6 +1,7 @@
 #include "svg.h"
 #include "png.h"
 #include "base64.h"
+#include "fish.h"
 
 #include <string>
 #include <fstream>
@@ -52,17 +53,11 @@ int SVGParser::load( const char* filename, SVG* svg ) {
   root->QueryFloatAttribute( "width",  &svg->width  );
   root->QueryFloatAttribute( "height", &svg->height );
 
+  // TODO -- # of fish should not be hardcoded
   for (size_t i=0; i<5; ++i) {
     parseSVG( root, svg );
-    Matrix3x3 tf;
-    tf[2][0] = rand() % 100 - 50;
-    tf[2][1] = rand() % 100 + 0;
-    tf[0][0] = 0.045;
-    tf[1][1] = 0.09;
-    tf[2][2] = 1;
-
-    svg->elements[i]->transform = tf;
-    cout << svg->elements[i]->transform << endl;
+    
+    //cout << svg->elements[i]->transform << endl;
 
     //for (size_t j=0; j<svg->elements.size(); ++j) {
       //std::vector<SVGElement*> elements;
