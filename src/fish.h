@@ -6,6 +6,7 @@
 
 namespace CMU462 {
 
+// Required to avoid circular dependancies
 class SVGElement;
 
 class Fish {
@@ -22,6 +23,8 @@ class Fish {
     // Or make it a global variable?
     void updateFish(double ts);
 
+    void commandFish(double c_x, double c_y);
+
   private:
     Vector2D position; // Fish position
     double heading; // Fish orientation
@@ -30,8 +33,8 @@ class Fish {
     double omega; // Angular velocity
 
     // Constant scale factors
-    const double sx = 0.045;
-    const double sy = 0.09;
+    const double sx = 0.09;
+    const double sy = 0.045;
 
 };
 

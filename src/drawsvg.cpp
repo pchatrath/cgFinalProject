@@ -229,12 +229,7 @@ void DrawSVG::cursor_event( float x, float y, unsigned char keys ) {
 
   SVG* svg = tabs[current_tab];
 
-  for (size_t i=0; i<svg->fish.size(); ++i) { 
-    
-    svg->fish[i].updateFish(1);
-  }
-
-  redraw();
+  
 
   //if (keys & (1 << 2)) {
   
@@ -244,6 +239,12 @@ void DrawSVG::cursor_event( float x, float y, unsigned char keys ) {
     viewport_imp[current_tab]->update_viewbox(dx, dy, 1);
     viewport_ref[current_tab]->update_viewbox(dx, dy, 1);*/
 
+    for (size_t i=0; i<svg->fish.size(); ++i) { 
+      //svg->fish[i].updateFish(1);
+      svg->fish[i].commandFish(x,y);
+    }
+
+    redraw();
 
   //}
   
