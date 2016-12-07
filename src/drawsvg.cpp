@@ -231,7 +231,7 @@ void DrawSVG::cursor_event( float x, float y, unsigned char keys ) {
 
   
 
-  //if (keys & (1 << 2)) {
+  if (keys & (1 << 2)) {
   
 /*    show_diff = false;
     float dx = (x - cursor_x) / width  * tabs[current_tab]->width;
@@ -245,8 +245,7 @@ void DrawSVG::cursor_event( float x, float y, unsigned char keys ) {
     }
 
     redraw();
-
-  //}
+  }
   
   // register new cursor location
   cursor_x = x;
