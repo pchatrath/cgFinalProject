@@ -33,8 +33,8 @@ class Fish {
     double omega; // Angular velocity
 
     // Constant scale factors
-    const double sx = 0.09;
-    const double sy = 0.045;
+    const double sx = 0.1;
+    const double sy = 0.1;
 
     void placeFish();
 

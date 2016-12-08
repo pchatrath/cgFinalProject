@@ -253,7 +253,9 @@ void DrawSVG::cursor_event( float x, float y ) {
     redraw();*/
     SVG* svg = tabs[current_tab];
 
-    for (size_t i=0; i<svg->fish.size(); ++i) { 
+    //for (size_t i=0; i<svg->fish.size(); ++i) { 
+
+    for (size_t i=0; i<1; ++i) { 
       //svg->fish[i].updateFish(1);
       svg->fish[i].commandFish(x,y);
     }
@@ -277,7 +279,7 @@ void DrawSVG::time_event( double duration ) {
     if (duration >= 2.0f) {
       svg->fish[i].commandFish(0,0);
     } else {
-      svg->fish[i].commandFish(100,100);      
+      svg->fish[i].commandFish(500,500);      
     }
   }
 

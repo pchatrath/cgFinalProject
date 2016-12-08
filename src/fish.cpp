@@ -51,7 +51,7 @@ void Fish::commandFish(double c_x, double c_y) {
 
   //cout << "X: " << c_x << " Y: " << c_y << endl;
   //cout << "X: " << position.x << " Y: " << position.y << endl;
-  cout << "Heading: " << heading << endl;
+  //cout << "Heading: " << heading << endl;
 
   //c_x = c_x / 960 * 100;
   //c_y = c_y / 660 * 100;
@@ -76,7 +76,7 @@ void Fish::commandFish(double c_x, double c_y) {
   dh = dh - (3.1415/2);
   //dh = min(dh, 3.1415-dh);
 
-  cout << "DH: " << dh << endl;
+  //cout << "DH: " << dh << endl;
   if (! (dh != dh) ) {
     heading = heading + .003 * dh;
   }
