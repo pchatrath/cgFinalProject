@@ -53,16 +53,10 @@ int SVGParser::load( const char* filename, SVG* svg ) {
   root->QueryFloatAttribute( "width",  &svg->width  );
   root->QueryFloatAttribute( "height", &svg->height );
 
-  // TODO -- # of fish should not be hardcoded
+  // Load SVG 5 times
   for (size_t i=0; i<5; ++i) {
     parseSVG( root, svg );
-    
-    //cout << svg->elements[i]->transform << endl;
-
-    //for (size_t j=0; j<svg->elements.size(); ++j) {
-      //std::vector<SVGElement*> elements;
-      //string elementType ( svg->elements[i]->Value());
-  } 
+  }
 
   return 0;
 }
@@ -81,7 +75,6 @@ void SVGParser::parseSVG( XMLElement* xml, SVG* svg ) {
   while( elem ) {
 
     string elementType ( elem->Value() );
-
     if( elementType == "line" ) {
 
       Line* line = new Line();

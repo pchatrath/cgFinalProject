@@ -8,8 +8,6 @@
 #include "texture.h"
 #include "svg_renderer.h"
 
-#include "matrix3x3.h"
-
 namespace CMU462 { // CMU462
 
 class SoftwareRenderer : public SVGRenderer {
@@ -83,9 +81,6 @@ class SoftwareRendererImp : public SoftwareRenderer {
  private:
 
   // Primitive Drawing //
-  std::vector<unsigned char> render_large;
-  int large_height;
-  int large_width;
 
   // Draws an SVG element
   void draw_element( SVGElement* element );
@@ -118,7 +113,6 @@ class SoftwareRendererImp : public SoftwareRenderer {
 
   // rasterize a point
   void rasterize_point( float x, float y, Color color );
-  void rasterize_point_triangle( float x, float y, Color color );
 
   // rasterize a line
   void rasterize_line( float x0, float y0,
@@ -138,13 +132,6 @@ class SoftwareRendererImp : public SoftwareRenderer {
 
   // resolve samples to render target
   void resolve( void );
-
-  // Student added helper functions
-  float fpart(float x); 
-  bool point_in_edge ( float x, float y,
-                       float x0, float y0,
-                       float dx, float dy);
-
 
 }; // class SoftwareRendererImp
 

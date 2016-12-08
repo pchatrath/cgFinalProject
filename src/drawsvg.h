@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "CMU462.h"
+#include "renderer.h"
 #include "svg.h"
 #include "hardware_renderer.h"
 #include "software_renderer.h"
@@ -34,6 +35,7 @@ class DrawSVG : public Renderer {
    * \param method Draw method to use.
    */
   DrawSVG() : 
+    leftDown (false),
     method (Hardware),
     sample_rate (1),
     current_tab (0),
@@ -59,8 +61,9 @@ class DrawSVG : public Renderer {
 
   void resize( size_t width, size_t height );
 
-  void key_event( char key );
-  void cursor_event( float x, float y, unsigned char keys );
+  void char_event( unsigned int key );
+  void mouse_event(int key, int event, unsigned char mods);
+  void cursor_event( float x, float y );
   void scroll_event( float offset_x, float offset_y );
 
   // END Implements renderer  //
@@ -76,7 +79,8 @@ class DrawSVG : public Renderer {
   inline void setRenderMethod( RenderMethod method ) {    
     
     this->method = method; 
-    this->method = Hardware;
+    
+    method = Hardware;
 
     switch (method) {
       case Hardware:
@@ -115,14 +119,15 @@ class DrawSVG : public Renderer {
    */
   int getErrorCount( void ) const;
 
-  // Moved tabs to be public
-  // So that SVG elements can be accessed
   std::vector<SVG*> tabs; size_t current_tab;
 
  private:
 
   /* window size */
   size_t width, height;
+
+  /* left button clicked */
+  bool leftDown;
 
   /* cursor position */
   float cursor_x; float cursor_y;

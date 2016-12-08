@@ -54,12 +54,12 @@ void DrawSVG::init() {
   // software renderer implementations
   software_renderer_imp = new SoftwareRendererImp();
   software_renderer_ref = new SoftwareRendererRef();
-  software_renderer = software_renderer_ref; // use imp at launch
+  software_renderer = software_renderer_imp; // use imp at launch
 
   // texture sampler implementations
   sampler_imp = new Sampler2DImp();
   sampler_ref = new Sampler2DRef();
-  sampler = sampler_ref; // use imp at launch
+  sampler = sampler_imp; // use imp at launch
 
   software_renderer_imp->set_tex_sampler(sampler_imp);
   software_renderer_ref->set_tex_sampler(sampler_ref);
@@ -84,8 +84,7 @@ void DrawSVG::init() {
   current_tab = 0;
 
   // initial osd
-  setRenderMethod( Software ); info();
-  osd = "Hardware Renderer";
+  osd = "Software Renderer";
 
 }
 
@@ -127,7 +126,7 @@ void DrawSVG::resize( size_t width, size_t height ) {
   redraw();
 }
 
-void DrawSVG::key_event( char key ) {
+void DrawSVG::char_event( unsigned int key ) {
 
   switch( key ) {
 
@@ -146,11 +145,11 @@ void DrawSVG::key_event( char key ) {
       break;
 
     // switch between iml and ref renderer
-    case 'R':
+    case 'r': case 'R':
       if (software_renderer == software_renderer_imp) {
         software_renderer = software_renderer_ref;
       } else {software_renderer = software_renderer_imp; }
-      setRenderMethod( Software );
+      setRenderMethod( Hardware );
       break;
 
     // switch between iml and ref sampler
@@ -164,16 +163,15 @@ void DrawSVG::key_event( char key ) {
       break;
 
     // change render method
-    case 'S':
-      //setRenderMethod( Software ); info();
+    case 's': case 'S':
       setRenderMethod( Hardware ); info();
       break;
-    case 'H':
+    case 'h': case 'H':
       setRenderMethod( Hardware ); info();
       break;
 
     // toggle diff
-    case 'D':
+    case 'd': case 'D':
       if (method == Software) {
         show_diff = !show_diff; 
         redraw();
@@ -181,7 +179,7 @@ void DrawSVG::key_event( char key ) {
       break;
 
     // toggle zoom
-    case 'Z':
+    case 'z': case 'Z':
       show_zoom = !show_zoom;
       break;
 
@@ -222,29 +220,46 @@ void DrawSVG::key_event( char key ) {
   }
 }
 
-void DrawSVG::cursor_event( float x, float y, unsigned char keys ) {
+void DrawSVG::mouse_event(int key, int event, unsigned char mods) {
+  switch(event) {
+    case EVENT_PRESS:
+      switch(key) {
+        case MOUSE_LEFT:
+          leftDown = true;
+          break;
+      }
+      break;
+    case EVENT_RELEASE:
+      switch(key) {
+        case MOUSE_LEFT:
+          leftDown = false;
+          break;
+      }
+      break;
+  }
+}
+
+void DrawSVG::cursor_event( float x, float y ) {
   
   // translate when left mouse button is held down
   // diff is disabled when panning - it's too slow
-
-  SVG* svg = tabs[current_tab];
-
-  
-
-  if (keys & (1 << 2)) {
+  if (leftDown) {
   
 /*    show_diff = false;
     float dx = (x - cursor_x) / width  * tabs[current_tab]->width;
     float dy = (y - cursor_y) / height * tabs[current_tab]->height;
     viewport_imp[current_tab]->update_viewbox(dx, dy, 1);
-    viewport_ref[current_tab]->update_viewbox(dx, dy, 1);*/
+    viewport_ref[current_tab]->update_viewbox(dx, dy, 1);
+    redraw();*/
+    SVG* svg = tabs[current_tab];
 
     for (size_t i=0; i<svg->fish.size(); ++i) { 
       //svg->fish[i].updateFish(1);
       svg->fish[i].commandFish(x,y);
     }
 
-    redraw();
+    //redraw();   
+
   }
   
   // register new cursor location

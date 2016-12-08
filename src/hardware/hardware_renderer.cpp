@@ -1,3 +1,4 @@
+#include "GL/glew.h"
 #include "hardware_renderer.h"
 
 #include <cmath>
@@ -251,6 +252,7 @@ void HardwareRenderer::rasterize_point(float x, float y, Color color) {
   glVertex2f(x,y);
 
   glEnd();
+
 }
 
 void HardwareRenderer::rasterize_line(float x0, float y0,
@@ -266,7 +268,7 @@ void HardwareRenderer::rasterize_line(float x0, float y0,
   glVertex2f(x0,y0);
   glVertex2f(x1,y1);
 
-  glEnd();  
+  glEnd(); 
 }
 
 void HardwareRenderer::rasterize_triangle(float x0, float y0,

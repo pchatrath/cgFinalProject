@@ -1,10 +1,11 @@
 #include "CMU462.h"
+#include "viewer.h"
 #include "drawsvg.h"
+#include "fish.h"
 
 #include <sys/stat.h>
 #include <dirent.h>
 #include <iostream>
-#include <fish.h>
 
 using namespace std;
 using namespace CMU462;
@@ -112,6 +113,7 @@ int main( int argc, char** argv ) {
     Fish f(svg->elements[i]);
     svg->fish.push_back(f);
   }
+
 
   // init viewer
   viewer.init();
