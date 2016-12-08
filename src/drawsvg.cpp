@@ -267,6 +267,25 @@ void DrawSVG::cursor_event( float x, float y ) {
   cursor_y = y;
 }
 
+void DrawSVG::time_event( double duration ) {
+  
+
+  SVG* svg = tabs[current_tab];
+
+  for (size_t i=0; i<svg->fish.size(); ++i) { 
+    //svg->fish[i].updateFish(1);
+    if (duration >= 2.0f) {
+      svg->fish[i].commandFish(0,0);
+    } else {
+      svg->fish[i].commandFish(100,100);      
+    }
+  }
+
+  redraw();   
+
+}
+
+
 void DrawSVG::scroll_event( float offset_x, float offset_y ) {
   // diff is disabled when zooming - it's too slow
   if (offset_x || offset_y) {

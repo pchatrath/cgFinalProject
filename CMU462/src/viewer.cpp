@@ -139,29 +139,32 @@ void Viewer::init() {
 
 void Viewer::start() {
 
-  // start timer
+  time_point<system_clock> sPrev; 
+  time_point<system_clock> sNext; 
+
+  // start timer (GLOBAL)
   sys_last = system_clock::now();
+
+  // start timer (LOCAL)
+  sPrev = system_clock::now();
+  sNext = system_clock::now();
 
   // run update loop
   while( !glfwWindowShouldClose( window ) ) { 
+    // Adding time event
+    sNext = system_clock::now();
+    double elapsed = ((duration<double>) (sNext - sPrev)).count(); // Seconds
+    
+    renderer->time_event(elapsed);
+
+    if (elapsed >= 4.0f) {
+      sPrev = sNext;
+    }
+
+    // Todo -- Seperate integrate loop and view loop
     update();
   }
 }
-
-/*void Viewer::start() {
-
-  // start timer
-  sys_last = system_clock::now();
-
-  // run update loop
-  while( !glfwWindowShouldClose( window ) ) { 
-    
-    // Do something interesting
-    // 
-
-    update();
-  }
-}*/
 
 void Viewer::set_renderer(Renderer *renderer) {
   this->renderer = renderer;

@@ -128,6 +128,11 @@ class Renderer {
   virtual void char_event( unsigned int codepoint ) { }
 
   /**
+   * Perform some predefined action based on timestep
+   */
+  virtual void time_event( double dt ) { }
+
+  /**
    * Internal -
    * The viewer will tell the renderer if the screen is in HDPI mode.
    */

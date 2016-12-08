@@ -36,6 +36,8 @@ class Fish {
     const double sx = 0.09;
     const double sy = 0.045;
 
+    void placeFish();
+
 };
 
 

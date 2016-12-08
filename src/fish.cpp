@@ -53,13 +53,13 @@ void Fish::commandFish(double c_x, double c_y) {
   //cout << "X: " << position.x << " Y: " << position.y << endl;
   cout << "Heading: " << heading << endl;
 
-  c_x = c_x / 960 * 100;
-  c_y = c_y / 660 * 100;
+  //c_x = c_x / 960 * 100;
+  //c_y = c_y / 660 * 100;
 
   // Update Velocity based on distance from fish to mouse click
   Vector2D M(c_x,c_y);
   double dist = (M-position).norm();
-  dist = dist * .005;
+  dist = dist * .0007;
 
   position.x = position.x + dist * cos(heading + M_PI_2);
   position.y = position.y + dist * sin(heading + M_PI_2);
@@ -78,9 +78,14 @@ void Fish::commandFish(double c_x, double c_y) {
 
   cout << "DH: " << dh << endl;
   if (! (dh != dh) ) {
-    heading = heading + .05 * dh;
+    heading = heading + .003 * dh;
   }
 
+  placeFish();
+
+}
+
+void Fish::placeFish() {
   // Update fish position
   Matrix3x3 T;
   T[2][0] = position.x;
@@ -102,7 +107,6 @@ void Fish::commandFish(double c_x, double c_y) {
   S[2][2] = 1;
 
   element->transform = T * R * S;  
-
 }
 
 }
