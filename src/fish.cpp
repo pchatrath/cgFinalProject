@@ -39,10 +39,20 @@ void Fish::updateFish(double ts) {
   vel = min(vel, velMax);
   vel = max(vel, velMin);
 
-  position.x = position.x + vel * cos(heading + M_PI_2);
-  position.y = position.y + vel * sin(heading + M_PI_2);
+  if (fearLevel > 0.5) {
+    // Fear decay
+    fearLevel = fearLevel * .9995;
+    position.x = position.x + 3 * velMax * cos(heading + M_PI_2);
+    position.y = position.y + 3 * velMax * sin(heading + M_PI_2);
+    heading = heading - 2 * torque * ts;
 
-  heading = heading - torque * ts;
+  } else {
+    fearLevel = 0;
+    position.x = position.x + vel * cos(heading + M_PI_2);
+    position.y = position.y + vel * sin(heading + M_PI_2);
+
+    heading = heading - torque * ts;
+  }
 
   // Normalize angles
   while (heading > 2 * M_PI) heading = heading - 2 * M_PI;
@@ -124,7 +134,8 @@ void Fish::updateFishForce() {
 
     if ( shortDist[i] < 200 && cosTheta > 0) {
       //cout << "SHOULD TURN" << endl;
-      torque = 1.5;
+      // TODO -- Check which way to turn
+      torque = 1.75;
     } 
   }
 
@@ -136,8 +147,8 @@ void Fish::commandFish(double c_x, double c_y) {
   //cout << "X: " << position.x << " Y: " << position.y << endl;
   //cout << "Heading: " << heading << endl;
 
-  c_x = c_x / 960 * 1000;
-  c_y = c_y / 660 * 1000;
+  //c_x = c_x / 960 * 1000;
+  //c_y = c_y / 660 * 1000;
 
   position.x = c_x;
   position.y = c_y;
@@ -197,6 +208,15 @@ void Fish::placeFish() {
   element->transform = T * R * S;  
 }
 
+void Fish::scareFish(double x, double y) {
+  Vector2D p(x,y);
+  Vector2D p2 = position - p;
+  if (p2.norm() < scareThresh) {
+    
+    fearLevel = 1 - p2.norm()*.005;
+
+  } 
+}
 
 std::vector<Vector2D> Fish::getIntersections() {
 

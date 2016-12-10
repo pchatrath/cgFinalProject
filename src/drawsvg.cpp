@@ -219,7 +219,21 @@ void DrawSVG::char_event( unsigned int key ) {
   }
 }
 
-void DrawSVG::mouse_event(int key, int event, unsigned char mods) {
+void DrawSVG::mouse_event(int key, int event, unsigned char mods, double x, double y) {
+
+  double dx = (x - 200) / 555.0 * 1000;
+  double dy = (y - 45) / 555.0 * 1000;
+
+  SVG* svg = tabs[current_tab];
+
+  if (event == 1) {
+    for (size_t i=0; i<svg->fish.size(); ++i) { 
+      //svg->fish[i].updateFish(1);
+      //svg->fish[i].commandFish(dx,dy);
+      svg->fish[i].scareFish(dx,dy);
+    }    
+  }
+
   switch(event) {
     case EVENT_PRESS:
       switch(key) {
@@ -260,7 +274,7 @@ void DrawSVG::cursor_event( float x, float y ) {
 
     for (size_t i=0; i<1; ++i) { 
       //svg->fish[i].updateFish(1);
-      svg->fish[i].commandFish(x,y);
+      //svg->fish[i].commandFish(x,y);
     }
 
     //redraw();   

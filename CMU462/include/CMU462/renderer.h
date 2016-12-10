@@ -99,7 +99,7 @@ class Renderer {
    * \param mods if any modifier keys are held down at the time of the event
    *        modifiers are defined in macros.
    */
-  virtual void mouse_event( int key, int event, unsigned char mods ) { }
+  virtual void mouse_event( int key, int event, unsigned char mods, double x , double y ) { }
 
   /**
    * Respond to keyboard event.

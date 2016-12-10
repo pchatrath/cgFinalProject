@@ -276,7 +276,10 @@ void Viewer::scroll_callback( GLFWwindow* window, double xoffset, double yoffset
 
 void Viewer::mouse_button_callback( GLFWwindow* window, int button, int action, int mods ) {
 
-  renderer->mouse_event( button, action, mods );
+  double xpos, ypos;
+  glfwGetCursorPos(window, &xpos, &ypos);
+  
+  renderer->mouse_event( button, action, mods, xpos, ypos );
 
 }
 

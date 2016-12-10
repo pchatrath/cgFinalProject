@@ -55,7 +55,7 @@ int SVGParser::load( const char* filename, SVG* svg ) {
 
   // Load SVG 5 times
   // TODO -- Variable number of fish!
-  for (size_t i=0; i<50; ++i) {
+  for (size_t i=0; i<40; ++i) {
     parseSVG( root, svg );
   }
 

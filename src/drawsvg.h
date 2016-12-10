@@ -62,7 +62,7 @@ class DrawSVG : public Renderer {
   void resize( size_t width, size_t height );
 
   void char_event( unsigned int key );
-  void mouse_event(int key, int event, unsigned char mods);
+  void mouse_event(int key, int event, unsigned char mods, double x, double y);
   void cursor_event( float x, float y );
   void scroll_event( float offset_x, float offset_y );
   void time_event( double dt );

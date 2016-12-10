@@ -32,6 +32,9 @@ class Fish {
     // Updates the forces on a given fish
     void updateFishForce();
 
+    // If fish within scare 
+    void scareFish(double x, double y);
+
     // Public so can be accessed by other fish
     Vector2D position; // Fish position
     double heading; // Fish orientation
@@ -44,6 +47,8 @@ class Fish {
     double vel = 0.1; // Linear velocity
     double velMax = 0.15;
     double velMin = 0.05;
+
+    double fearLevel = 0;
 
     double omega; // Angular velocity
 
@@ -58,7 +63,7 @@ class Fish {
 
     const double attractionThresh = 50;
     const double repulsionThresh = 25;
-
+    const double scareThresh = 100;
 
     void placeFish();
 
