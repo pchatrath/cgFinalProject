@@ -54,7 +54,8 @@ int SVGParser::load( const char* filename, SVG* svg ) {
   root->QueryFloatAttribute( "height", &svg->height );
 
   // Load SVG 5 times
-  for (size_t i=0; i<20; ++i) {
+  // TODO -- Variable number of fish!
+  for (size_t i=0; i<50; ++i) {
     parseSVG( root, svg );
   }
 

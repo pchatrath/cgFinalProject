@@ -243,6 +243,10 @@ void DrawSVG::cursor_event( float x, float y ) {
   // translate when left mouse button is held down
   // diff is disabled when panning - it's too slow
   if (leftDown) {
+
+    cout << "X: " << x << endl;
+    cout << "Y: " << y << endl;
+
   
 /*    show_diff = false;
     float dx = (x - cursor_x) / width  * tabs[current_tab]->width;

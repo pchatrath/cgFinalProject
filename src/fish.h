@@ -41,8 +41,9 @@ class Fish {
     double force;
     double torque;
 
-    double vel; // Linear velocity
-    double velMax = 0.1;
+    double vel = 0.1; // Linear velocity
+    double velMax = 0.15;
+    double velMin = 0.05;
 
     double omega; // Angular velocity
 
@@ -55,7 +56,9 @@ class Fish {
     const double sx = 0.05;
     const double sy = 0.05;
 
-    const double attractionThresh = 400;
+    const double attractionThresh = 50;
+    const double repulsionThresh = 25;
+
 
     void placeFish();
 

@@ -10,8 +10,8 @@ namespace CMU462 {
 Fish::Fish(SVGElement* e) {
   element = e;
 
-  double x = rand() % 1000 + 0;
-  double y = rand() % 1000 + 0;
+  double x = rand() % 800 + 100;
+  double y = rand() % 800 + 100;
 
   Vector2D p(x,y);
   position = p;
@@ -21,7 +21,6 @@ Fish::Fish(SVGElement* e) {
   placeFish();
 
   // TODO -- Set velocity randomly
-  velMax = .1;
   vel = .1;
 
   omega = 0.0;
@@ -34,6 +33,11 @@ Fish::Fish(SVGElement* e) {
 }
 
 void Fish::updateFish(double ts) {
+
+  // Randomly vary velocity of fish
+  vel = vel + .0005 * rand() / (RAND_MAX);
+  vel = min(vel, velMax);
+  vel = max(vel, velMin);
 
   position.x = position.x + vel * cos(heading + M_PI_2);
   position.y = position.y + vel * sin(heading + M_PI_2);
@@ -74,6 +78,9 @@ void Fish::updateFishForce() {
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
       torque += fishHead[i];
     }
+    if (fishDist[i] > .001 && fishDist[i] < repulsionThresh) {
+      torque -= 7*fishHead[i];
+    }
   }
 
   // Arbitrary turning limits
@@ -96,26 +103,28 @@ void Fish::updateFishForce() {
   //  return;
   //}
 
+  std::vector<double> shortDist;
+  shortDist.resize(4);
+  shortDist[0]=position.y;
+  shortDist[1]=1000-position.x;
+  shortDist[2]=1000-position.y;
+  shortDist[3]=position.x;
+
   int turnCt = 0;
   for (size_t i=0; i<4; ++i) {
-    //int indexMin = i;
-    //int indexMax = (i+1) % 4;
+    
     Vector2D diff = intersections[i]-position;
     double dist = diff.norm();
-
     Vector2D p2;
     p2.x = position.x + 1000 * cos(heading + M_PI_2);
     p2.y = position.y + 1000 * sin(heading + M_PI_2);
-    
     double cosTheta = dot( intersections[i]-position, p2-position);
-
     cosTheta = cosTheta / (intersections[i]-position).norm();
     cosTheta = cosTheta / (p2-position).norm();
 
-    //cout << "DIST: " << dist << " CT: " << cosTheta << " I: " << i << endl;
-
-    if ( (dx < 100 || dy < 100) && cosTheta > 0) {
-      //torque = 1.5;
+    if ( shortDist[i] < 200 && cosTheta > 0) {
+      //cout << "SHOULD TURN" << endl;
+      torque = 1.5;
     } 
   }
 
@@ -127,8 +136,15 @@ void Fish::commandFish(double c_x, double c_y) {
   //cout << "X: " << position.x << " Y: " << position.y << endl;
   //cout << "Heading: " << heading << endl;
 
-  //c_x = c_x / 960 * 100;
-  //c_y = c_y / 660 * 100;
+  c_x = c_x / 960 * 1000;
+  c_y = c_y / 660 * 1000;
+
+  position.x = c_x;
+  position.y = c_y;
+
+  heading = 2*M_PI * rand() / (RAND_MAX);
+
+  placeFish();
 
   // Update Velocity based on distance from fish to mouse click
 /*  Vector2D M(c_x,c_y);
