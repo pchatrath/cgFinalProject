@@ -156,10 +156,7 @@ void Viewer::start() {
     double elapsed = ((duration<double>) (sNext - sPrev)).count(); // Seconds
     
     renderer->time_event(elapsed);
-
-    if (elapsed >= 4.0f) {
-      sPrev = sNext;
-    }
+    sPrev = sNext;
 
     // Todo -- Seperate integrate loop and view loop
     update();

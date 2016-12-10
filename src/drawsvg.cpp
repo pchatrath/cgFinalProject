@@ -132,8 +132,7 @@ void DrawSVG::char_event( unsigned int key ) {
 
     // reset view transformation
     case ' ':
-      auto_adjust(current_tab);
-      redraw();
+      doIntegration = (!doIntegration);
       break;
 
     // SSAA controls
@@ -274,12 +273,21 @@ void DrawSVG::time_event( double duration ) {
 
   SVG* svg = tabs[current_tab];
 
-  for (size_t i=0; i<svg->fish.size(); ++i) { 
+/*  for (size_t i=0; i<svg->fish.size(); ++i) { 
     //svg->fish[i].updateFish(1);
     if (duration >= 2.0f) {
       svg->fish[i].commandFish(0,0);
     } else {
       svg->fish[i].commandFish(500,500);      
+    }
+  }
+*/
+
+  for (size_t i=0; i<svg->fish.size(); ++i) { 
+    if (doIntegration) {
+      svg->fish[i].updateFishDistance(svg->fish);
+      svg->fish[i].updateFishForce();
+      svg->fish[i].updateFish(duration);
     }
   }
 

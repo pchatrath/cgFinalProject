@@ -191,6 +191,8 @@ class DrawSVG : public Renderer {
   /* update framebuffer for software renderer */
   void display_pixels( const unsigned char* pixels ) const;
 
+  int doIntegration = 0;
+
 };
 
 } // namespace CMU462

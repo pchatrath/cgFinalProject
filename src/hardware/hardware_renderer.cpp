@@ -7,6 +7,7 @@
 #include <algorithm>
 
 #include "triangulation.h"
+#include "color.h"
 
 using namespace std;
 
@@ -52,24 +53,38 @@ void HardwareRenderer::draw_svg( SVG& svg ) {
   // set top level transformation
   transformation = canvas_to_screen;
 
+  // draw canvas outline
+  int delta = 20;
+  Vector2D a = transform(Vector2D(    -delta    ,     -delta    )); a.x--; a.y--;
+  Vector2D b = transform(Vector2D(svg.width + delta,     -delta    )); b.x++; b.y--;
+  Vector2D c = transform(Vector2D(    -delta    ,svg.height + delta)); c.x--; c.y++;
+  Vector2D d = transform(Vector2D(svg.width + delta,svg.height + delta)); d.x++; d.y++;
+
+  char black[] = "000000"; 
+
+  rasterize_triangle( a.x, a.y, b.x, b.y, c.x, c.y, Color::fromHex( black ) );
+  rasterize_triangle( b.x, b.y, c.x, c.y, d.x, d.y, Color::fromHex( black ) );
+
+  // draw canvas outline
+  a = transform(Vector2D(    0    ,     0    )); a.x--; a.y--;
+  b = transform(Vector2D(svg.width,     0    )); b.x++; b.y--;
+  c = transform(Vector2D(    0    ,svg.height)); c.x--; c.y++;
+  d = transform(Vector2D(svg.width,svg.height)); d.x++; d.y++;
+
+  char blue[] = "1E90FF"; 
+
+  rasterize_triangle( a.x, a.y, b.x, b.y, c.x, c.y, Color::fromHex( blue ) );
+  rasterize_triangle( b.x, b.y, c.x, c.y, d.x, d.y, Color::fromHex( blue ) );
+
+  //rasterize_line(a.x, a.y, b.x, b.y, Color::Black);
+  //rasterize_line(a.x, a.y, c.x, c.y, Color::Black);
+  //rasterize_line(d.x, d.y, b.x, b.y, Color::Black);
+  //rasterize_line(d.x, d.y, c.x, c.y, Color::Black);
+
   // draw all elements
   for ( size_t i = 0; i < svg.elements.size(); ++i ) {
     draw_element(svg.elements[i]);
   }
-
-  // draw canvas outline
-  Vector2D a = transform(Vector2D(    0    ,     0    )); a.x--; a.y--;
-  Vector2D b = transform(Vector2D(svg.width,     0    )); b.x++; b.y--;
-  Vector2D c = transform(Vector2D(    0    ,svg.height)); c.x--; c.y++;
-  Vector2D d = transform(Vector2D(svg.width,svg.height)); d.x++; d.y++;
-
-  rasterize_line(a.x, a.y, b.x, b.y, Color::Black);
-  rasterize_line(a.x, a.y, c.x, c.y, Color::Black);
-  rasterize_line(d.x, d.y, b.x, b.y, Color::Black);
-  rasterize_line(d.x, d.y, c.x, c.y, Color::Black);
-
-  // resolve and send to render target
-  // resolve();
 
   leave2DDrawing();
 

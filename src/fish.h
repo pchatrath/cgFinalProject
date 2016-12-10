@@ -25,19 +25,42 @@ class Fish {
 
     void commandFish(double c_x, double c_y);
 
-  private:
+    // Update distance and heading vectors
+    // Between this fish and other given fish
+    void updateFishDistance(std::vector<Fish> otherFish);
+
+    // Updates the forces on a given fish
+    void updateFishForce();
+
+    // Public so can be accessed by other fish
     Vector2D position; // Fish position
     double heading; // Fish orientation
 
+  private:
+
+    double force;
+    double torque;
+
     double vel; // Linear velocity
+    double velMax = 0.1;
+
     double omega; // Angular velocity
 
+    // List to store distances and headings between fish
+    // Updated every timestep
+    std::vector<double> fishDist;
+    std::vector<double> fishHead;
+
     // Constant scale factors
-    const double sx = 0.1;
-    const double sy = 0.1;
+    const double sx = 0.05;
+    const double sy = 0.05;
+
+    const double attractionThresh = 400;
 
     void placeFish();
 
+    std::vector<Vector2D> getIntersections();
+    std::vector<Vector2D> corners;
 };
 
 

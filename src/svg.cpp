@@ -54,7 +54,7 @@ int SVGParser::load( const char* filename, SVG* svg ) {
   root->QueryFloatAttribute( "height", &svg->height );
 
   // Load SVG 5 times
-  for (size_t i=0; i<5; ++i) {
+  for (size_t i=0; i<20; ++i) {
     parseSVG( root, svg );
   }
 
@@ -313,7 +313,7 @@ void SVGParser::parsePolyline( XMLElement* xml, Polyline* polyline ) {
   char c;
 
   while( points >> x >> c >> y ) {
-     polyline->points.push_back( Vector2D( x, y ) );
+     polyline->points.push_back( Vector2D( x - 500, y - 500) );
   }
 }
 
