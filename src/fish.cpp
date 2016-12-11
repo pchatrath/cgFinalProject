@@ -61,18 +61,18 @@ void Fish::updateFish(double ts) {
   placeFish();
 }
 
-void Fish::updateFishDistance(std::vector<Fish> otherFish) {
+void Fish::updateFishDistance(std::vector<Fish*> otherFish) {
 
   fishDist.clear();
   fishHead.clear();
 
   for (size_t i=0; i<otherFish.size(); ++i) {
-    double dist = (this->position - otherFish[i].position).norm();
+    double dist = (this->position - otherFish[i]->position).norm();
     fishDist.push_back( dist );
-    double head = this->heading - otherFish[i].heading;
+    double head = this->heading - otherFish[i]->heading;
     while (head > M_PI) head = head - M_PI;
     while (head < M_PI) head = head + M_PI;
-    fishHead.push_back( this->heading - otherFish[i].heading );
+    fishHead.push_back( this->heading - otherFish[i]->heading );
   }
 }
 
@@ -80,7 +80,7 @@ void Fish::updateFishDistance(std::vector<Fish> otherFish) {
 // Fish are attracted to other fish
 // Fish are repelled from other fish
 // Fish change orientation based on other
-void Fish::updateFishForce() {
+void Minnow::updateFishForce() {
 
   torque = 0;
   // Attractive force
@@ -141,14 +141,8 @@ void Fish::updateFishForce() {
 
 }
 
+// Useful for testing
 void Fish::commandFish(double c_x, double c_y) {
-
-  //cout << "X: " << c_x << " Y: " << c_y << endl;
-  //cout << "X: " << position.x << " Y: " << position.y << endl;
-  //cout << "Heading: " << heading << endl;
-
-  //c_x = c_x / 960 * 1000;
-  //c_y = c_y / 660 * 1000;
 
   position.x = c_x;
   position.y = c_y;
@@ -156,31 +150,6 @@ void Fish::commandFish(double c_x, double c_y) {
   heading = 2*M_PI * rand() / (RAND_MAX);
 
   placeFish();
-
-  // Update Velocity based on distance from fish to mouse click
-/*  Vector2D M(c_x,c_y);
-  double dist = (M-position).norm();
-  dist = dist * .0007;
-
-  position.x = position.x + dist * cos(heading + M_PI_2);
-  position.y = position.y + dist * sin(heading + M_PI_2);
-
-  // Update heading
-
-  Vector2D h(cos(heading),sin(heading));
-  Vector2D v1 = M-position; 
-
-  //cout << "DOT P " << dot(v1,h) << endl;
-
-  double dh = dot(v1,h) / ( v1.norm() * h.norm() );
-  dh = acos(dh);
-  dh = dh - (3.1415/2);
-  //dh = min(dh, 3.1415-dh);
-
-  //cout << "DH: " << dh << endl;
-  if (! (dh != dh) ) {
-    heading = heading + .003 * dh;
-  }*/
 
 }
 
@@ -208,7 +177,7 @@ void Fish::placeFish() {
   element->transform = T * R * S;  
 }
 
-void Fish::scareFish(double x, double y) {
+void Minnow::scareFish(double x, double y) {
   Vector2D p(x,y);
   Vector2D p2 = position - p;
   if (p2.norm() < scareThresh) {

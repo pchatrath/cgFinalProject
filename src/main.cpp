@@ -110,8 +110,9 @@ int main( int argc, char** argv ) {
   SVG* svg = drawsvg->tabs[drawsvg->current_tab];
 
   for (size_t i=0; i<svg->elements.size(); ++i) { 
-    Fish f(svg->elements[i]);
-    svg->fish.push_back(f);
+    
+    Minnow f(svg->elements[i]);
+    svg->fish.push_back(&f);
   }
 
 

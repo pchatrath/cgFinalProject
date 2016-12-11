@@ -122,7 +122,7 @@ struct SVG {
   ~SVG();
   float width, height;
   std::vector<SVGElement*> elements;
-  std::vector<Fish> fish;
+  std::vector<Fish*> fish;
 
 };
 
