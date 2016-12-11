@@ -319,6 +319,10 @@ void DrawSVG::time_event( double duration ) {
         Turtle* t = static_cast<Turtle *>(f);
         t->calculateForces();
         t->updateFish(duration);
+      } else if (f->type == SHARK) {
+        Shark* t = static_cast<Shark *>(f);
+        t->calculateForces();
+        t->updateFish(duration);
       }
     }
   }

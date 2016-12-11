@@ -249,6 +249,41 @@ void Turtle::calculateForces() {
   } 
 }
 
+void Shark::calculateForces() {
+  
+  // Turtles just roam, 
+  std::vector<Vector2D> intersections = getIntersections();
+
+  std::vector<double> shortDist;
+  shortDist.resize(4);
+  shortDist[0]=position.y;
+  shortDist[1]=1000-position.x;
+  shortDist[2]=1000-position.y;
+  shortDist[3]=position.x;
+
+  int turnCt = 0;
+  for (size_t i=0; i<4; ++i) {
+    
+    Vector2D diff = intersections[i]-position;
+    double dist = diff.norm();
+    Vector2D p2;
+    p2.x = position.x + 1000 * cos(heading + M_PI_2);
+    p2.y = position.y + 1000 * sin(heading + M_PI_2);
+    double cosTheta = dot( intersections[i]-position, p2-position);
+    cosTheta = cosTheta / (intersections[i]-position).norm();
+    cosTheta = cosTheta / (p2-position).norm();
+
+    if ( shortDist[i] < 200 && cosTheta > 0) {
+      //cout << "SHOULD TURN" << endl;
+      // TODO -- Check which way to turn
+      torque = 1.75;
+    } else {
+
+      torque = torque - .05 * rand() / (RAND_MAX);;
+      torque = max(torque, 0.0);
+    }
+  } 
+}
 
 std::vector<Vector2D> Fish::getIntersections() {
 

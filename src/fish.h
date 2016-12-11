@@ -79,8 +79,8 @@ class Fish {
 class Minnow: public Fish {
   public:
     Minnow(SVGElement* e, FishType t = MINNOW): Fish(e, t) {
-        sx = 0.05;
-        sy = 0.05;
+        sx = 0.035;
+        sy = 0.035;
     }
     ~Minnow() {};
 
@@ -98,6 +98,9 @@ class Shark: public Fish {
 
     virtual void updateFishForce();
     virtual void scareFish(double x, double y);
+
+    void calculateForces();
+
 };
 
 

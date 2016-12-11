@@ -115,17 +115,18 @@ int main( int argc, char** argv ) {
     Minnow* minnow = new Minnow(svg->elements[i]);
     svg->fish.push_back(minnow);
   }
-  
-  for (size_t i=numMinnows; i<numMinnows+numSharks; ++i) {
-    SVG* svg = drawsvg->tabs[drawsvg->current_tab];
-    Shark* shark = new Shark(svg->elements[i]);
-    svg->fish.push_back(shark);
-  }
 
-  for (size_t i=numMinnows+numSharks; i<numMinnows+numSharks+numTurtles; ++i) {
+  for (size_t i=numMinnows; i<numMinnows+numTurtles; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
     Turtle* turtle = new Turtle(svg->elements[i]);
     svg->fish.push_back(turtle);
+  }
+
+  
+  for (size_t i=numMinnows+numTurtles; i<numMinnows+numSharks+numTurtles; ++i) {
+    SVG* svg = drawsvg->tabs[drawsvg->current_tab];
+    Shark* shark = new Shark(svg->elements[i]);
+    svg->fish.push_back(shark);
   }
 
   cout << "PRESS SPACE TO START ANIMATION" << endl;
