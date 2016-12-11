@@ -52,6 +52,7 @@ class DrawSVG : public Renderer {
   ~DrawSVG( void );
 
   // BEGIN Implements Renderer //
+  AquariumInfo aquariumInfo;
 
   std::string name ( void );
   std::string info ( void );

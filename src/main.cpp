@@ -6,17 +6,18 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 using namespace CMU462;
 
 #define msg(s) cerr << "[DrawSVG] " << s << endl;
 
-int loadFile( DrawSVG* drawsvg, const char* path ) {
+int loadAquarium( DrawSVG* drawsvg) {
 
   SVG* svg = new SVG();
 
-  if( SVGParser::load( path, svg ) < 0) {
+  if( SVGParser::load( drawsvg->aquariumInfo, svg ) < 0) {
     delete svg;
     return -1;
   }
@@ -25,7 +26,7 @@ int loadFile( DrawSVG* drawsvg, const char* path ) {
   return 0;
 }
 
-int loadDirectory( DrawSVG* drawsvg, const char* path ) {
+/*int loadDirectory( DrawSVG* drawsvg, const char* path ) {
 
   DIR *dir = opendir (path);
   if(dir) {
@@ -63,31 +64,8 @@ int loadDirectory( DrawSVG* drawsvg, const char* path ) {
 
   msg("Could not open directory" << path);
   return -1;
-}
+}*/
 
-int loadPath( DrawSVG* drawsvg, const char* path) {
-
-  struct stat st;
-
-  // file exist?
-  if(stat(path, &st) < 0 ) {
-    msg("File does not exit: " << path);
-    return -1;
-  }
-
-  // load directory
-  if( st.st_mode & S_IFDIR ) {
-    return loadDirectory(drawsvg, path);
-  } 
-
-  // load file
-  if( st.st_mode & S_IFREG ) {
-    return loadFile(drawsvg, path);
-  }
-
-  msg("Invalid path: " << path);
-  return -1;
-}
 
 int main( int argc, char** argv ) {
 
@@ -101,20 +79,56 @@ int main( int argc, char** argv ) {
   viewer.set_renderer(drawsvg);
 
   // load tests
-  if( argc == 2 ) {
+/*  if( argc == 2 ) {
     if (loadPath(drawsvg, argv[1]) < 0) exit(0);
   } else {
     msg("Usage: drawsvg <path to test file or directory>"); exit(0);
+  }*/
+
+  if(argc != 4) {
+    msg("Usage: ./aquarium #fish #sharks #turtles "); 
+    exit(0);
   }
+
+  char minnowPath[] = "../svg/minnow.svg";
+  char turtlePath[] = "../svg/turtle.svg";
+  char sharkPath[] = "../svg/shark.svg";
+
+  int numMinnows = atoi(argv[1]);
+  int numSharks = atoi(argv[2]);
+  int numTurtles = atoi(argv[3]);
+
+  AquariumInfo ai;
+
+  ai.numMinnows = numMinnows;
+  ai.numSharks = numSharks;
+  ai.numTurtles = numTurtles;
+
+  drawsvg->aquariumInfo = ai;
+
+  loadAquarium(drawsvg);
 
   SVG* svg = drawsvg->tabs[drawsvg->current_tab];
 
-  for (size_t i=0; i<svg->elements.size(); ++i) { 
-    
-    Minnow f(svg->elements[i]);
-    svg->fish.push_back(&f);
+  for (size_t i=0; i<numMinnows; ++i) {
+    SVG* svg = drawsvg->tabs[drawsvg->current_tab];
+    Minnow* minnow = new Minnow(svg->elements[i]);
+    svg->fish.push_back(minnow);
+  }
+  
+  for (size_t i=numMinnows; i<numMinnows+numSharks; ++i) {
+    SVG* svg = drawsvg->tabs[drawsvg->current_tab];
+    Shark* shark = new Shark(svg->elements[i]);
+    svg->fish.push_back(shark);
   }
 
+  for (size_t i=numMinnows+numSharks; i<numMinnows+numSharks+numTurtles; ++i) {
+    SVG* svg = drawsvg->tabs[drawsvg->current_tab];
+    Turtle* turtle = new Turtle(svg->elements[i]);
+    svg->fish.push_back(turtle);
+  }
+
+  cout << "PRESS SPACE TO START ANIMATION" << endl;
 
   // init viewer
   viewer.init();

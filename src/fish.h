@@ -10,7 +10,7 @@ namespace CMU462 {
 class SVGElement;
 
 typedef enum e_FishType {
-  NONE = 0,
+  FISH = 0,
   MINNOW,
   SHARK,
   TURTLE
@@ -18,10 +18,12 @@ typedef enum e_FishType {
 
 class Fish {
   public:
-    Fish( SVGElement* e );
+    Fish( SVGElement* e, FishType t);
+    virtual ~Fish() { }
 
     SVGElement* element; // SVG Object associated with fish
-    
+    FishType type;
+
     Vector2D position; // Fish position
     double heading; // Fish orientation
 
@@ -52,7 +54,7 @@ class Fish {
     double force;
     double torque;
 
-    double vel = 0.1; // Linear velocity
+    double vel = 0.4; // Linear velocity
     double fearLevel = 0;
 
     double omega; // Angular velocity
@@ -62,34 +64,58 @@ class Fish {
     std::vector<double> fishHead;
 
     // Constant scale factors
-    const double sx = 0.05;
-    const double sy = 0.05;
+    double sx;
+    double sy;
 
     const double attractionThresh = 50;
     const double repulsionThresh = 25;
     const double scareThresh = 100;
 
-    double velMax = 0.15;
-    double velMin = 0.05;
+    double velMax = 5;
+    double velMin = 2.5;
 
 };
 
 class Minnow: public Fish {
   public:
-    Minnow(SVGElement* e): Fish(e){};
+    Minnow(SVGElement* e, FishType t = MINNOW): Fish(e, t) {
+        sx = 0.05;
+        sy = 0.05;
+    }
     ~Minnow() {};
 
     virtual void updateFishForce();
     virtual void scareFish(double x, double y);
 };
 
-/*class Shark: public Fish {
+class Shark: public Fish {
+  public:
+    Shark(SVGElement* e, FishType t = SHARK): Fish(e, t) {
+        sx = 0.025;
+        sy = 0.025;
+    }
+    ~Shark() {};
 
+    virtual void updateFishForce();
+    virtual void scareFish(double x, double y);
 };
 
-class Turtle: public Fish {
 
-};*/
+class Turtle: public Fish {
+  public:
+    Turtle(SVGElement* e, FishType t = TURTLE): Fish(e, t) {
+        sx = 0.05;
+        sy = 0.05;
+        velMax = 2;
+        velMin = 1;
+    }
+    ~Turtle() {};
+
+    virtual void updateFishForce();
+    virtual void scareFish(double x, double y);
+
+    void calculateForces();
+};
 
 /*class Fish {
   public:

@@ -7,14 +7,17 @@ using namespace std;
 
 namespace CMU462 {
 
-Fish::Fish(SVGElement* e) {
+Fish::Fish(SVGElement* e, FishType T) {
   element = e;
+  type = T;
 
   double x = rand() % 800 + 100;
   double y = rand() % 800 + 100;
 
   Vector2D p(x,y);
   position = p;
+
+  cout << "INITIAL POS: " << p << endl;
 
   heading = 2*M_PI * rand() / (RAND_MAX);
 
@@ -39,7 +42,7 @@ void Fish::updateFish(double ts) {
   vel = min(vel, velMax);
   vel = max(vel, velMin);
 
-  if (fearLevel > 0.5) {
+/*  if (fearLevel > 0.5) {
     // Fear decay
     fearLevel = fearLevel * .9995;
     position.x = position.x + 3 * velMax * cos(heading + M_PI_2);
@@ -52,7 +55,12 @@ void Fish::updateFish(double ts) {
     position.y = position.y + vel * sin(heading + M_PI_2);
 
     heading = heading - torque * ts;
-  }
+  }*/
+
+  position.x = position.x + vel * cos(heading + M_PI_2);
+  position.y = position.y + vel * sin(heading + M_PI_2);
+
+  heading = heading - torque * ts;
 
   // Normalize angles
   while (heading > 2 * M_PI) heading = heading - 2 * M_PI;
@@ -67,12 +75,14 @@ void Fish::updateFishDistance(std::vector<Fish*> otherFish) {
   fishHead.clear();
 
   for (size_t i=0; i<otherFish.size(); ++i) {
-    double dist = (this->position - otherFish[i]->position).norm();
+    Fish* f = otherFish[i];
+    
+    double dist = (this->position - f->position).norm();
     fishDist.push_back( dist );
-    double head = this->heading - otherFish[i]->heading;
+    double head = this->heading - f->heading;
     while (head > M_PI) head = head - M_PI;
     while (head < M_PI) head = head + M_PI;
-    fishHead.push_back( this->heading - otherFish[i]->heading );
+    fishHead.push_back( this->heading - f->heading );
   }
 }
 
@@ -186,6 +196,59 @@ void Minnow::scareFish(double x, double y) {
 
   } 
 }
+
+void Shark::scareFish(double x, double y) {
+
+}
+
+void Shark::updateFishForce() {
+
+}
+
+void Turtle::scareFish(double x, double y) {
+
+}
+
+void Turtle::updateFishForce() {
+  
+}
+
+void Turtle::calculateForces() {
+  
+  // Turtles just roam, 
+  std::vector<Vector2D> intersections = getIntersections();
+
+  std::vector<double> shortDist;
+  shortDist.resize(4);
+  shortDist[0]=position.y;
+  shortDist[1]=1000-position.x;
+  shortDist[2]=1000-position.y;
+  shortDist[3]=position.x;
+
+  int turnCt = 0;
+  for (size_t i=0; i<4; ++i) {
+    
+    Vector2D diff = intersections[i]-position;
+    double dist = diff.norm();
+    Vector2D p2;
+    p2.x = position.x + 1000 * cos(heading + M_PI_2);
+    p2.y = position.y + 1000 * sin(heading + M_PI_2);
+    double cosTheta = dot( intersections[i]-position, p2-position);
+    cosTheta = cosTheta / (intersections[i]-position).norm();
+    cosTheta = cosTheta / (p2-position).norm();
+
+    if ( shortDist[i] < 200 && cosTheta > 0) {
+      //cout << "SHOULD TURN" << endl;
+      // TODO -- Check which way to turn
+      torque = 1.75;
+    } else {
+
+      torque = torque - .05 * rand() / (RAND_MAX);;
+      torque = max(torque, 0.0);
+    }
+  } 
+}
+
 
 std::vector<Vector2D> Fish::getIntersections() {
 

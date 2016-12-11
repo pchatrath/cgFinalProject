@@ -13,6 +13,15 @@
 #include "tinyxml2.h"
 using namespace tinyxml2;
 
+struct AquariumInfo{
+  char minnowPath[18] = "../svg/minnow.svg"; // Gross. IDK why compiler needs size initialized
+  char turtlePath[18] = "../svg/turtle.svg"; // Be careful if these paths change
+  char sharkPath[17] = "../svg/shark.svg";
+  int numMinnows;
+  int numTurtles;
+  int numSharks;
+};
+
 namespace CMU462 {
 
 class Fish;
@@ -129,7 +138,7 @@ struct SVG {
 class SVGParser {
  public:
 
-  static int load( const char* filename, SVG* svg );
+  static int load( AquariumInfo ai, SVG* svg );
   static int save( const char* filename, const SVG* svg );
  
  private:

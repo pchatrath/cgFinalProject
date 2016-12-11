@@ -230,7 +230,7 @@ void DrawSVG::mouse_event(int key, int event, unsigned char mods, double x, doub
     for (size_t i=0; i<svg->fish.size(); ++i) { 
       //svg->fish[i].updateFish(1);
       //svg->fish[i].commandFish(dx,dy);
-      svg->fish[i]->scareFish(dx,dy);
+      //svg->fish[i]->scareFish(dx,dy);
     }    
   }
 
@@ -289,6 +289,11 @@ void DrawSVG::cursor_event( float x, float y ) {
 void DrawSVG::time_event( double duration ) {
   
 
+  if (duration < 0) {
+    redraw();
+    return;
+  }
+
   SVG* svg = tabs[current_tab];
 
 /*  for (size_t i=0; i<svg->fish.size(); ++i) { 
@@ -303,9 +308,18 @@ void DrawSVG::time_event( double duration ) {
 
   for (size_t i=0; i<svg->fish.size(); ++i) { 
     if (doIntegration) {
-      svg->fish[i]->updateFishDistance(svg->fish);
-      svg->fish[i]->updateFishForce();
-      svg->fish[i]->updateFish(duration);
+      //cout << svg->fish[i]->type << endl;
+      Fish* f = svg->fish[i];
+      if (f->type == MINNOW) {
+        Minnow* m = static_cast<Minnow *>(f);
+        m->updateFishDistance(svg->fish);
+        m->updateFishForce();
+        m->updateFish(duration);
+      } else if (f->type == TURTLE) {
+        Turtle* t = static_cast<Turtle *>(f);
+        t->calculateForces();
+        t->updateFish(duration);
+      }
     }
   }
 

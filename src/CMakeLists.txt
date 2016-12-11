@@ -65,13 +65,13 @@ include(reference/reference.cmake)
 #-------------------------------------------------------------------------------
 # Add executable
 #-------------------------------------------------------------------------------
-add_executable( drawsvg
+add_executable( aquarium
     ${CMU462_DRAWSVG_SOURCE}
     ${CMU462_DRAWSVG_HEADER}
 )
 
 # Link drawsvg executable (static link reference solution)
-target_link_libraries( drawsvg drawsvg_hdwr drawsvg_ref
+target_link_libraries( aquarium drawsvg_hdwr drawsvg_ref
     ${FREETYPE_LIBRARIES}
     ${OPENGL_LIBRARIES}
     CMU462 ${CMU462_LIBRARIES}
@@ -80,13 +80,13 @@ target_link_libraries( drawsvg drawsvg_hdwr drawsvg_ref
 )
 
 if (APPLE) # Frameworks required on osx
-  target_link_libraries(drawsvg  
+  target_link_libraries(aquarium  
     ${COCOA_LIBRARIES}
     ${IOKIT_LIBRARIES}
     ${COREVIDEO_LIBRARIES}
   )
 else(UNIX)  #LINUX
-target_link_libraries( drawsvg drawsvg_hdwr drawsvg_ref
+target_link_libraries( aquarium drawsvg_hdwr drawsvg_ref
     ${CMU462_LIBRARIES}
     ${GLEW_LIBRARIES}
     ${GLFW_LIBRARIES}
@@ -112,7 +112,7 @@ endif()
 set(EXECUTABLE_OUTPUT_PATH ..)
 
 # Install to project root
-install(TARGETS drawsvg DESTINATION ${drawsvg_SOURCE_DIR})
+install(TARGETS aquarium DESTINATION ${drawsvg_SOURCE_DIR})
 
 # Copy Freetype DLLs to the build directory
 if(WIN32)

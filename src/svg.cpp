@@ -29,36 +29,54 @@ SVG::~SVG() {
 
 // Parser //
 
-int SVGParser::load( const char* filename, SVG* svg ) {
+int SVGParser::load( AquariumInfo ai, SVG* svg ) {
 
-  ifstream in( filename );
-  if( !in.is_open() ) {
-     return -1;
+  for (size_t i=0; i<3; ++i) {
+
+    int numFish;
+    char* filename;
+
+    if (i == 0) {
+      numFish = ai.numMinnows;
+      filename = ai.minnowPath;
+    }
+    if (i == 1) {
+      numFish = ai.numTurtles;
+      filename = ai.turtlePath;
+    }
+    if (i == 2) {
+      numFish = ai.numSharks;
+      filename = ai.sharkPath;
+    }
+
+    for (size_t j=0; j<numFish; ++j) {
+      ifstream in( filename );
+      if( !in.is_open() ) {
+         return -1;
+      }
+      in.close();
+
+      XMLDocument doc;
+      doc.LoadFile( filename );
+      if( doc.Error() ) {
+         doc.PrintError();
+         exit( 1 );
+      }
+
+      XMLElement* root = doc.FirstChildElement( "svg" );
+      if( !root ) {
+         cerr << "Error: not an SVG file!" << endl;
+         exit( 1 );
+      }
+
+      root->QueryFloatAttribute( "width",  &svg->width  );
+      root->QueryFloatAttribute( "height", &svg->height );
+        
+      parseSVG( root, svg );
+    }
+
   }
-  in.close();
-
-  XMLDocument doc;
-  doc.LoadFile( filename );
-  if( doc.Error() ) {
-     doc.PrintError();
-     exit( 1 );
-  }
-
-  XMLElement* root = doc.FirstChildElement( "svg" );
-  if( !root ) {
-     cerr << "Error: not an SVG file!" << endl;
-     exit( 1 );
-  }
-
-  root->QueryFloatAttribute( "width",  &svg->width  );
-  root->QueryFloatAttribute( "height", &svg->height );
-
-  // Load SVG 5 times
-  // TODO -- Variable number of fish!
-  for (size_t i=0; i<40; ++i) {
-    parseSVG( root, svg );
-  }
-
+  
   return 0;
 }
 
@@ -314,7 +332,7 @@ void SVGParser::parsePolyline( XMLElement* xml, Polyline* polyline ) {
   char c;
 
   while( points >> x >> c >> y ) {
-     polyline->points.push_back( Vector2D( x - 500, y - 500) );
+     polyline->points.push_back( Vector2D( x , y ) );
   }
 }
 
