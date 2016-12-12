@@ -51,8 +51,8 @@ class Fish {
     std::vector<Vector2D> getIntersections();
     std::vector<Vector2D> corners;
 
-    double force;
-    double torque;
+    double force = 0;
+    double torque = 0;
 
     double vel = 0.4; // Linear velocity
     double fearLevel = 0;

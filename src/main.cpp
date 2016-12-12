@@ -90,13 +90,9 @@ int main( int argc, char** argv ) {
     exit(0);
   }
 
-  char minnowPath[] = "../svg/minnow.svg";
-  char turtlePath[] = "../svg/turtle.svg";
-  char sharkPath[] = "../svg/shark.svg";
-
   int numMinnows = atoi(argv[1]);
-  int numSharks = atoi(argv[2]);
-  int numTurtles = atoi(argv[3]);
+  int numTurtles = atoi(argv[2]);
+  int numSharks = atoi(argv[3]);
 
   AquariumInfo ai;
 
@@ -110,19 +106,21 @@ int main( int argc, char** argv ) {
 
   SVG* svg = drawsvg->tabs[drawsvg->current_tab];
 
+  // Create minnow obejcts
   for (size_t i=0; i<numMinnows; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
     Minnow* minnow = new Minnow(svg->elements[i]);
     svg->fish.push_back(minnow);
   }
 
+  // Create turtle obejcts
   for (size_t i=numMinnows; i<numMinnows+numTurtles; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
     Turtle* turtle = new Turtle(svg->elements[i]);
     svg->fish.push_back(turtle);
   }
 
-  
+  // Create shark objects
   for (size_t i=numMinnows+numTurtles; i<numMinnows+numSharks+numTurtles; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
     Shark* shark = new Shark(svg->elements[i]);
