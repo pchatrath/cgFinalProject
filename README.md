@@ -20,3 +20,7 @@ The following concrete steps will be required for successful completion of this 
 [2] Schooling fish behavior: https://www.mrl.ucsb.edu/sites/default/files/mrl_docs/ret_attachments/research/KTaylor.pdf
 
 [3] Image: https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg
+
+[4] Flocking video: https://www.youtube.com/watch?v=QbUPfMXXQIY&feature=youtu.be
+
+[5] Coordinated motion: http://www.red3d.com/cwr/boids/
