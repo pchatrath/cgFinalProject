@@ -134,6 +134,9 @@ void Viewer::init() {
 
   // resize elements to current size
   resize_callback(window, buffer_w, buffer_h);
+  
+  // Set background color to 1E90FF
+  glClearColor( 0.1176, 0.5647, 1, 1);
 
 }
 
@@ -278,7 +281,7 @@ void Viewer::mouse_button_callback( GLFWwindow* window, int button, int action, 
 
   double xpos, ypos;
   glfwGetCursorPos(window, &xpos, &ypos);
-  
+
   renderer->mouse_event( button, action, mods, xpos, ypos );
 
 }

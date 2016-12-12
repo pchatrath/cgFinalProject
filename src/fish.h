@@ -45,6 +45,12 @@ class Fish {
     // Function to make fish interact with mouse click
     virtual void scareFish(double x, double y) = 0;
 
+    int width = 960;
+    int height = 640;
+    int buffer = 50; // Rollover buffer
+
+    void updateViewer(int w, int h);
+
   protected:
 
     // Calculate intersections to four walls of fishtank
@@ -71,16 +77,16 @@ class Fish {
     const double repulsionThresh = 25;
     const double scareThresh = 100;
 
-    double velMax = 5;
-    double velMin = 2.5;
+    double velMax = 5 / 25.0;
+    double velMin = 2.5 / 25.0;
 
 };
 
 class Minnow: public Fish {
   public:
     Minnow(SVGElement* e, FishType t = MINNOW): Fish(e, t) {
-        sx = 0.035;
-        sy = 0.035;
+        sx = 0.04;
+        sy = 0.04;
     }
     ~Minnow() {};
 
@@ -109,8 +115,8 @@ class Turtle: public Fish {
     Turtle(SVGElement* e, FishType t = TURTLE): Fish(e, t) {
         sx = 0.05;
         sy = 0.05;
-        velMax = 2;
-        velMin = 1;
+        velMax = 2 / 10.0;
+        velMin = 1 / 10.0;
     }
     ~Turtle() {};
 

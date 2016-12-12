@@ -117,6 +117,11 @@ void DrawSVG::resize( size_t width, size_t height ) {
   // update hardware renderer
   hardware_renderer->resize(width, height);
 
+  SVG* svg = tabs[current_tab];
+  for (size_t i=0; i<svg->fish.size(); ++i) { 
+    svg->fish[i]->updateViewer(width, height);
+  }      
+
   // re-adjust norm_to_screen
   float scale = min(width, height);
   norm_to_screen(0,0) = scale; norm_to_screen(0,2) = (width  - scale) / 2;

@@ -8,6 +8,7 @@
 
 #include "triangulation.h"
 #include "color.h"
+#include "matrix3x3.h"
 
 using namespace std;
 
@@ -51,9 +52,10 @@ void HardwareRenderer::draw_svg( SVG& svg ) {
   begin2DDrawing();
 
   // set top level transformation
-  transformation = canvas_to_screen;
+  //transformation = canvas_to_screen;
+  transformation = Matrix3x3::identity();
 
-  // draw canvas outline
+/*  // draw canvas outline
   int delta = 20;
   Vector2D a = transform(Vector2D(    -delta    ,     -delta    )); a.x--; a.y--;
   Vector2D b = transform(Vector2D(svg.width + delta,     -delta    )); b.x++; b.y--;
@@ -74,7 +76,7 @@ void HardwareRenderer::draw_svg( SVG& svg ) {
   char blue[] = "1E90FF"; 
 
   rasterize_triangle( a.x, a.y, b.x, b.y, c.x, c.y, Color::fromHex( blue ) );
-  rasterize_triangle( b.x, b.y, c.x, c.y, d.x, d.y, Color::fromHex( blue ) );
+  rasterize_triangle( b.x, b.y, c.x, c.y, d.x, d.y, Color::fromHex( blue ) );*/
 
   //rasterize_line(a.x, a.y, b.x, b.y, Color::Black);
   //rasterize_line(a.x, a.y, c.x, c.y, Color::Black);

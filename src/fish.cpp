@@ -17,8 +17,6 @@ Fish::Fish(SVGElement* e, FishType T) {
   Vector2D p(x,y);
   position = p;
 
-  cout << "INITIAL POS: " << p << endl;
-
   heading = 2*M_PI * rand() / (RAND_MAX);
 
   placeFish();
@@ -33,6 +31,11 @@ Fish::Fish(SVGElement* e, FishType T) {
   Vector2D x3 (1000,1000); corners.push_back(x3);
   Vector2D x4 (0,1000); corners.push_back(x4);
 
+}
+
+void Fish::updateViewer(int w, int h) {
+  width = w;
+  height = h;
 }
 
 void Fish::updateFish(double ts) {
@@ -96,7 +99,7 @@ void Minnow::updateFishForce() {
   // Attractive force
   for (size_t i=0; i<fishDist.size(); ++i) {
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
-      torque += fishHead[i];
+      torque += 5*fishHead[i];
     }
     if (fishDist[i] > .001 && fishDist[i] < repulsionThresh) {
       torque -= 7*fishHead[i];
@@ -104,10 +107,10 @@ void Minnow::updateFishForce() {
   }
 
   // Arbitrary turning limits
-  if (torque > .75) torque = .75;
-  if (torque < -.75) torque = -.75;
+  if (torque > 2) torque = 2;
+  if (torque < -2) torque = -2;
 
-  // Wall repulsion forces
+/*  // Wall repulsion forces
   double dx = min( 1000 - position.x, position.x);
   double dy = min( 1000 - position.y, position.y);
 
@@ -147,7 +150,7 @@ void Minnow::updateFishForce() {
       // TODO -- Check which way to turn
       torque = 1.75;
     } 
-  }
+  }*/
 
 }
 
@@ -164,6 +167,22 @@ void Fish::commandFish(double c_x, double c_y) {
 }
 
 void Fish::placeFish() {
+
+  // Check position limits
+  // TODO -- Add buffer 
+  if (position.x > (width + buffer)) {
+    position.x = position.x - (width + buffer);
+  }
+  if (position.x < (0-buffer)) {
+    position.x = position.x + (width+buffer);
+  }
+  if (position.y > (height + buffer)) {
+    position.y = position.y - (height + buffer);
+  }
+  if (position.y < (0-buffer)) {
+    position.y = position.y + (height + buffer);
+  }  
+
   // Update fish position
   Matrix3x3 T;
   T[2][0] = position.x;
