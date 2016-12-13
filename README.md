@@ -5,6 +5,22 @@ For this assignment, we plan to to develop a 2D fishtank simulator to investigat
 
 ![picture alt](https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg)
 
+### Usage Instructions
+
+First build the project
+```
+mkdir build && cd build && cmake .. && make
+```
+
+Next, run the program from the command line
+```
+./aquarium #fish #turtles #sharks
+```
+
+Finally, press space bar to start and stop the animation.
+
+### Work Breakdown
+
 The following concrete steps will be required for successful completion of this project.
 
  1. Create/find SVGs for fish and sharks and extend HW1 rasterizer as necessary to draw these files in the viewer.  
