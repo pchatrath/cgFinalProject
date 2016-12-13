@@ -17,7 +17,7 @@ Next, run the program from the command line
 ./aquarium #fish #turtles #sharks
 ```
 
-Finally, press space bar to start and stop the animation.
+Finally, press space bar to start and stop the animation. Click with the mouse to scare fish.
 
 ### Work Breakdown
 
