@@ -97,7 +97,8 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
     }
     // Minnors strongly repel turtles
     if (otherFish[i]->type == TURTLE && fishDist[i] < turtleThresh) {
-      torque -= 150*( M_PI_2 - fishHead[i]);
+      float goalHeading = getGoalHeading(otherFish[i]->position);
+      torque += 100*(heading - goalHeading);
     }
 
     if (otherFish[i]->type == SHARK && fishDist[i] < sharkThresh) {
