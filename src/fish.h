@@ -40,7 +40,7 @@ class Fish {
     void updateFish(double ts);
 
     // Updates the forces on a given fish
-    virtual void updateFishForce() = 0;
+    //virtual void updateFishForce(std::vector<Fish*> otherFish) = 0;
 
     // Function to make fish interact with mouse click
     virtual void scareFish(double x, double y) = 0;
@@ -73,9 +73,10 @@ class Fish {
     double sx;
     double sy;
 
-    const double attractionThresh = 50;
-    const double repulsionThresh = 25;
+    const double attractionThresh = 60;
+    const double repulsionThresh = 35;
     const double scareThresh = 100;
+    const double turtleThresh = 100;
 
     double velMax = 5 / 25.0;
     double velMin = 2.5 / 25.0;
@@ -90,7 +91,8 @@ class Minnow: public Fish {
     }
     ~Minnow() {};
 
-    virtual void updateFishForce();
+    void calculateForces(std::vector<Fish*> otherFish);
+    
     virtual void scareFish(double x, double y);
 };
 
@@ -102,7 +104,6 @@ class Shark: public Fish {
     }
     ~Shark() {};
 
-    virtual void updateFishForce();
     virtual void scareFish(double x, double y);
 
     void calculateForces();
@@ -115,12 +116,11 @@ class Turtle: public Fish {
     Turtle(SVGElement* e, FishType t = TURTLE): Fish(e, t) {
         sx = 0.05;
         sy = 0.05;
-        velMax = 2 / 10.0;
-        velMin = 1 / 10.0;
+        velMax = 2 / 45.0;
+        velMin = 1 / 45.0;
     }
     ~Turtle() {};
 
-    virtual void updateFishForce();
     virtual void scareFish(double x, double y);
 
     void calculateForces();

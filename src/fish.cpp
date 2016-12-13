@@ -11,8 +11,8 @@ Fish::Fish(SVGElement* e, FishType T) {
   element = e;
   type = T;
 
-  double x = rand() % 800 + 100;
-  double y = rand() % 800 + 100;
+  double x = rand() % width;
+  double y = rand() % height;
 
   Vector2D p(x,y);
   position = p;
@@ -93,7 +93,7 @@ void Fish::updateFishDistance(std::vector<Fish*> otherFish) {
 // Fish are attracted to other fish
 // Fish are repelled from other fish
 // Fish change orientation based on other
-void Minnow::updateFishForce() {
+void Minnow::calculateForces(std::vector<Fish*> otherFish) {
 
   torque = 0;
   // Attractive force
@@ -104,53 +104,15 @@ void Minnow::updateFishForce() {
     if (fishDist[i] > .001 && fishDist[i] < repulsionThresh) {
       torque -= 7*fishHead[i];
     }
+    // Minnors strongly repel turtles
+    if (otherFish[i]->type == TURTLE && fishDist[i] < turtleThresh) {
+      torque -= 150*( M_PI_2 - fishHead[i]);
+    }
   }
 
   // Arbitrary turning limits
   if (torque > 2) torque = 2;
   if (torque < -2) torque = -2;
-
-/*  // Wall repulsion forces
-  double dx = min( 1000 - position.x, position.x);
-  double dy = min( 1000 - position.y, position.y);
-
-  double wallDist = min(dx,dy);
-
-  //vel = min(.0004 * wallDist + .0025,velMax);
-
-  std::vector<Vector2D> intersections = getIntersections();
-  
-  // Stuck in corner, try to get out
-  //if (dx < 100 && dy < 100) {
-  //  torque = 2;
-  //  return;
-  //}
-
-  std::vector<double> shortDist;
-  shortDist.resize(4);
-  shortDist[0]=position.y;
-  shortDist[1]=1000-position.x;
-  shortDist[2]=1000-position.y;
-  shortDist[3]=position.x;
-
-  int turnCt = 0;
-  for (size_t i=0; i<4; ++i) {
-    
-    Vector2D diff = intersections[i]-position;
-    double dist = diff.norm();
-    Vector2D p2;
-    p2.x = position.x + 1000 * cos(heading + M_PI_2);
-    p2.y = position.y + 1000 * sin(heading + M_PI_2);
-    double cosTheta = dot( intersections[i]-position, p2-position);
-    cosTheta = cosTheta / (intersections[i]-position).norm();
-    cosTheta = cosTheta / (p2-position).norm();
-
-    if ( shortDist[i] < 200 && cosTheta > 0) {
-      //cout << "SHOULD TURN" << endl;
-      // TODO -- Check which way to turn
-      torque = 1.75;
-    } 
-  }*/
 
 }
 
@@ -220,22 +182,26 @@ void Shark::scareFish(double x, double y) {
 
 }
 
-void Shark::updateFishForce() {
-
-}
 
 void Turtle::scareFish(double x, double y) {
 
 }
 
-void Turtle::updateFishForce() {
-  
-}
 
 void Turtle::calculateForces() {
   
-  // Turtles just roam, 
-  std::vector<Vector2D> intersections = getIntersections();
+  // Turtles just roam
+  float dTorque = .01;
+  torque = torque - dTorque * rand() / (RAND_MAX) + dTorque/2.0;
+
+  // With small random probability, 0 torque
+  double p = 1.0 * rand() / (RAND_MAX);
+  //cout << p << endl;
+  if (p < .001) {
+    torque = 0;
+  }
+
+/*  std::vector<Vector2D> intersections = getIntersections();
 
   std::vector<double> shortDist;
   shortDist.resize(4);
@@ -265,7 +231,7 @@ void Turtle::calculateForces() {
       torque = torque - .05 * rand() / (RAND_MAX);;
       torque = max(torque, 0.0);
     }
-  } 
+  } */
 }
 
 void Shark::calculateForces() {

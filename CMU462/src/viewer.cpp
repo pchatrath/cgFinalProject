@@ -67,7 +67,7 @@ void Viewer::init() {
   }
 
   // create window
-  string title = renderer ? "CMU462: " + renderer->name() : "CMU462";
+  string title = "CMU462: Final Assignment";
   window = glfwCreateWindow( DEFAULT_W, DEFAULT_H, title.c_str(), NULL, NULL );
   if (!window) {
     out_err("Error: could not create window!");

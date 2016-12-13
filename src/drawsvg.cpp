@@ -318,7 +318,7 @@ void DrawSVG::time_event( double duration ) {
       if (f->type == MINNOW) {
         Minnow* m = static_cast<Minnow *>(f);
         m->updateFishDistance(svg->fish);
-        m->updateFishForce();
+        m->calculateForces(svg->fish);
         m->updateFish(duration);
       } else if (f->type == TURTLE) {
         Turtle* t = static_cast<Turtle *>(f);
