@@ -226,8 +226,8 @@ void DrawSVG::char_event( unsigned int key ) {
 
 void DrawSVG::mouse_event(int key, int event, unsigned char mods, double x, double y) {
 
-  double dx = (x - 200) / 555.0 * 1000;
-  double dy = (y - 45) / 555.0 * 1000;
+  //double dx = (x - 200) / 555.0 * 1000;
+  //double dy = (y - 45) / 555.0 * 1000;
 
   SVG* svg = tabs[current_tab];
 
@@ -236,10 +236,8 @@ void DrawSVG::mouse_event(int key, int event, unsigned char mods, double x, doub
       Fish* f = svg->fish[i];
       if (f->type == MINNOW) {
         Minnow* m = static_cast<Minnow *>(f);
-        m->
-      //svg->fish[i].updateFish(1);
-      //svg->fish[i].commandFish(dx,dy);
-      //svg->fish[i]->scareFish(dx,dy);
+        m->scareFish(x, y);
+      }
     }    
   }
 

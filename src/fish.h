@@ -48,6 +48,8 @@ class Fish {
 
     void updateViewer(int w, int h);
 
+    double fearLevel = 0;
+
   protected:
 
     // Calculate intersections to four walls of fishtank
@@ -58,7 +60,6 @@ class Fish {
     double torque = 0;
 
     double vel; // Linear velocity
-    double fearLevel = 0;
 
     double omega; // Angular velocity
 
@@ -96,7 +97,12 @@ class Minnow: public Fish {
     
     void scareFish(double x, double y);
 
-    float getGoalHeading(Fish* otherFish);
+    float getGoalHeading(Vector2D otherPosition);
+
+    Vector2D scarePt;
+    double scareDistThresh = 150;
+    float scareHeading;
+
 };
 
 class Shark: public Fish {

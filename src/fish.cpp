@@ -45,20 +45,9 @@ void Fish::updateFish(double ts) {
   vel = min(vel, velMax);
   vel = max(vel, velMin);
 
-/*  if (fearLevel > 0.5) {
-    // Fear decay
-    fearLevel = fearLevel * .9995;
-    position.x = position.x + 3 * velMax * cos(heading + M_PI_2);
-    position.y = position.y + 3 * velMax * sin(heading + M_PI_2);
-    heading = heading - 2 * torque * ts;
-
-  } else {
-    fearLevel = 0;
-    position.x = position.x + vel * cos(heading + M_PI_2);
-    position.y = position.y + vel * sin(heading + M_PI_2);
-
-    heading = heading - torque * ts;
-  }*/
+  if (fearLevel > 0.5) {
+    vel = vel * 3;
+  }
 
   position.x = position.x + vel * cos(heading + M_PI_2);
   position.y = position.y + vel * sin(heading + M_PI_2);
@@ -114,8 +103,8 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
     if (otherFish[i]->type == SHARK && fishDist[i] < sharkThresh) {
       // Fish should avoid sharks at all costs
       torque = 0;
-      float goalHeading = getGoalHeading(otherFish[i]);
-      sharkTorque = 250 * goalHeading;
+      float goalHeading = getGoalHeading(otherFish[i]->position);
+      sharkTorque = 250 * (heading - goalHeading);
       //cout << sharkTorque << endl;
       nearShark = 1;
     }
@@ -125,20 +114,26 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
     torque = sharkTorque;
   }
 
+  if (fearLevel > 0.5) {
+    // Fear decay
+    fearLevel = fearLevel * .999;  
+    vel = velMax;  
+    torque = 250 * (heading - scareHeading);
+  }
+
   // Arbitrary turning limits
   if (torque > 2) torque = 2;
   if (torque < -2) torque = -2;
 
 }
 
-float Minnow::getGoalHeading(Fish* otherFish) {
+float Minnow::getGoalHeading(Vector2D otherPosition) {
   // Calculate goal vector 
-  Vector2D goalVector = position - otherFish->position;
+  Vector2D goalVector = position - otherPosition;
   double goalHeading = atan2(goalVector.y, goalVector.x);
   while (goalHeading > M_PI) goalHeading = goalHeading - M_PI;
   while (goalHeading < M_PI) goalHeading = goalHeading + M_PI;
-  float torque = heading - (float) goalHeading;
-  return torque;
+  return (float) goalHeading;
 }
 
 // Useful for testing
@@ -156,7 +151,6 @@ void Fish::commandFish(double c_x, double c_y) {
 void Fish::placeFish() {
 
   // Check position limits
-  // TODO -- Add buffer 
   if (position.x > (width + buffer)) {
     position.x = position.x - (width + buffer);
   }
@@ -195,11 +189,11 @@ void Fish::placeFish() {
 
 void Minnow::scareFish(double x, double y) {
   Vector2D p(x,y);
+  scarePt = p;
   Vector2D p2 = position - p;
-  if (p2.norm() < scareThresh) {
-    
-    fearLevel = 1 - p2.norm()*.005;
-
+  if (p2.norm() < scareDistThresh) {
+    fearLevel = 1;
+    scareHeading = getGoalHeading(scarePt);
   } 
 }
 
