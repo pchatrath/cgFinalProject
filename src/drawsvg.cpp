@@ -233,6 +233,10 @@ void DrawSVG::mouse_event(int key, int event, unsigned char mods, double x, doub
 
   if (event == 1) {
     for (size_t i=0; i<svg->fish.size(); ++i) { 
+      Fish* f = svg->fish[i];
+      if (f->type == MINNOW) {
+        Minnow* m = static_cast<Minnow *>(f);
+        m->
       //svg->fish[i].updateFish(1);
       //svg->fish[i].commandFish(dx,dy);
       //svg->fish[i]->scareFish(dx,dy);

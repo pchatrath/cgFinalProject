@@ -96,6 +96,8 @@ void Fish::updateFishDistance(std::vector<Fish*> otherFish) {
 void Minnow::calculateForces(std::vector<Fish*> otherFish) {
 
   torque = 0;
+  int nearShark = 0;
+  float sharkTorque;
   // Attractive force
   for (size_t i=0; i<fishDist.size(); ++i) {
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
@@ -108,12 +110,35 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
     if (otherFish[i]->type == TURTLE && fishDist[i] < turtleThresh) {
       torque -= 150*( M_PI_2 - fishHead[i]);
     }
+
+    if (otherFish[i]->type == SHARK && fishDist[i] < sharkThresh) {
+      // Fish should avoid sharks at all costs
+      torque = 0;
+      float goalHeading = getGoalHeading(otherFish[i]);
+      sharkTorque = 250 * goalHeading;
+      //cout << sharkTorque << endl;
+      nearShark = 1;
+    }
+  }
+
+  if (nearShark) {
+    torque = sharkTorque;
   }
 
   // Arbitrary turning limits
   if (torque > 2) torque = 2;
   if (torque < -2) torque = -2;
 
+}
+
+float Minnow::getGoalHeading(Fish* otherFish) {
+  // Calculate goal vector 
+  Vector2D goalVector = position - otherFish->position;
+  double goalHeading = atan2(goalVector.y, goalVector.x);
+  while (goalHeading > M_PI) goalHeading = goalHeading - M_PI;
+  while (goalHeading < M_PI) goalHeading = goalHeading + M_PI;
+  float torque = heading - (float) goalHeading;
+  return torque;
 }
 
 // Useful for testing
@@ -178,15 +203,6 @@ void Minnow::scareFish(double x, double y) {
   } 
 }
 
-void Shark::scareFish(double x, double y) {
-
-}
-
-
-void Turtle::scareFish(double x, double y) {
-
-}
-
 
 void Turtle::calculateForces() {
   
@@ -196,78 +212,29 @@ void Turtle::calculateForces() {
 
   // With small random probability, 0 torque
   double p = 1.0 * rand() / (RAND_MAX);
-  //cout << p << endl;
   if (p < .001) {
     torque = 0;
   }
 
-/*  std::vector<Vector2D> intersections = getIntersections();
-
-  std::vector<double> shortDist;
-  shortDist.resize(4);
-  shortDist[0]=position.y;
-  shortDist[1]=1000-position.x;
-  shortDist[2]=1000-position.y;
-  shortDist[3]=position.x;
-
-  int turnCt = 0;
-  for (size_t i=0; i<4; ++i) {
-    
-    Vector2D diff = intersections[i]-position;
-    double dist = diff.norm();
-    Vector2D p2;
-    p2.x = position.x + 1000 * cos(heading + M_PI_2);
-    p2.y = position.y + 1000 * sin(heading + M_PI_2);
-    double cosTheta = dot( intersections[i]-position, p2-position);
-    cosTheta = cosTheta / (intersections[i]-position).norm();
-    cosTheta = cosTheta / (p2-position).norm();
-
-    if ( shortDist[i] < 200 && cosTheta > 0) {
-      //cout << "SHOULD TURN" << endl;
-      // TODO -- Check which way to turn
-      torque = 1.75;
-    } else {
-
-      torque = torque - .05 * rand() / (RAND_MAX);;
-      torque = max(torque, 0.0);
-    }
-  } */
 }
 
 void Shark::calculateForces() {
   
-  // Turtles just roam, 
-  std::vector<Vector2D> intersections = getIntersections();
+  // Right now, sharks just roam
+  float dTorque = .02;
+  torque = torque - dTorque * rand() / (RAND_MAX) + dTorque/2.0;
 
-  std::vector<double> shortDist;
-  shortDist.resize(4);
-  shortDist[0]=position.y;
-  shortDist[1]=1000-position.x;
-  shortDist[2]=1000-position.y;
-  shortDist[3]=position.x;
+  // With small random probability, 0 torque
+  double p = 1.0 * rand() / (RAND_MAX);
+  if (p < .001) {
+    torque = 0;
+  }
 
-  int turnCt = 0;
-  for (size_t i=0; i<4; ++i) {
-    
-    Vector2D diff = intersections[i]-position;
-    double dist = diff.norm();
-    Vector2D p2;
-    p2.x = position.x + 1000 * cos(heading + M_PI_2);
-    p2.y = position.y + 1000 * sin(heading + M_PI_2);
-    double cosTheta = dot( intersections[i]-position, p2-position);
-    cosTheta = cosTheta / (intersections[i]-position).norm();
-    cosTheta = cosTheta / (p2-position).norm();
+  // Useful to debug fish movements 
+  position.x = 300;
+  position.y = 300;
+  heading = 0;
 
-    if ( shortDist[i] < 200 && cosTheta > 0) {
-      //cout << "SHOULD TURN" << endl;
-      // TODO -- Check which way to turn
-      torque = 1.75;
-    } else {
-
-      torque = torque - .05 * rand() / (RAND_MAX);;
-      torque = max(torque, 0.0);
-    }
-  } 
 }
 
 std::vector<Vector2D> Fish::getIntersections() {
@@ -277,8 +244,6 @@ std::vector<Vector2D> Fish::getIntersections() {
 
   p2.x = p1.x + 1000 * cos(heading + M_PI_2);
   p2.y = p1.y + 1000 * sin(heading + M_PI_2);
-
-  //cout << "P1: " << p1 << " P2: << " << p2 << " C1: " << corners[0] << " C2: " << corners[1] << endl;
 
   std::vector<Vector2D> intersections;
 

@@ -42,9 +42,6 @@ class Fish {
     // Updates the forces on a given fish
     //virtual void updateFishForce(std::vector<Fish*> otherFish) = 0;
 
-    // Function to make fish interact with mouse click
-    virtual void scareFish(double x, double y) = 0;
-
     int width = 960;
     int height = 640;
     int buffer = 50; // Rollover buffer
@@ -60,7 +57,7 @@ class Fish {
     double force = 0;
     double torque = 0;
 
-    double vel = 0.4; // Linear velocity
+    double vel; // Linear velocity
     double fearLevel = 0;
 
     double omega; // Angular velocity
@@ -77,34 +74,41 @@ class Fish {
     const double repulsionThresh = 35;
     const double scareThresh = 100;
     const double turtleThresh = 100;
+    const double sharkThresh = 100;
 
-    double velMax = 5 / 25.0;
-    double velMin = 2.5 / 25.0;
+    double velMax;
+    double velMin;
 
 };
 
 class Minnow: public Fish {
   public:
     Minnow(SVGElement* e, FishType t = MINNOW): Fish(e, t) {
-        sx = 0.04;
-        sy = 0.04;
+        sx = 0.03;
+        sy = 0.03;
+        vel = (velMin + velMax)/2;
+        velMax = 5 / 35.0;
+        velMin = 2.5 / 35.0;
     }
     ~Minnow() {};
 
     void calculateForces(std::vector<Fish*> otherFish);
     
-    virtual void scareFish(double x, double y);
+    void scareFish(double x, double y);
+
+    float getGoalHeading(Fish* otherFish);
 };
 
 class Shark: public Fish {
   public:
     Shark(SVGElement* e, FishType t = SHARK): Fish(e, t) {
-        sx = 0.025;
-        sy = 0.025;
+        sx = 0.02;
+        sy = 0.02;
+        velMax = 5 / 25.0;
+        velMin = 2.5 / 25.0;
+        vel = (velMin + velMax)/2;
     }
     ~Shark() {};
-
-    virtual void scareFish(double x, double y);
 
     void calculateForces();
 
@@ -114,14 +118,13 @@ class Shark: public Fish {
 class Turtle: public Fish {
   public:
     Turtle(SVGElement* e, FishType t = TURTLE): Fish(e, t) {
-        sx = 0.05;
-        sy = 0.05;
+        sx = 0.04;
+        sy = 0.04;
         velMax = 2 / 45.0;
         velMin = 1 / 45.0;
+        vel = (velMin + velMax)/2;
     }
     ~Turtle() {};
-
-    virtual void scareFish(double x, double y);
 
     void calculateForces();
 };
