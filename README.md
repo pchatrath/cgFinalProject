@@ -31,6 +31,8 @@ The following concrete steps will be required for successful completion of this 
 
 #### References
 
+This assignment was completed for Carnegie Mellons Computer Graphics class (15-462), taught by Professors Keenan Crane and Stelian Coros. More info can be found on the course website here: http://15462.courses.cs.cmu.edu/fall2016/home
+
 [1] School of fish simulation video: https://www.youtube.com/watch?v=NKhHp7Wfdmk
 
 [2] Schooling fish behavior: https://www.mrl.ucsb.edu/sites/default/files/mrl_docs/ret_attachments/research/KTaylor.pdf
