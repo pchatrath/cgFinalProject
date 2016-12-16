@@ -70,10 +70,14 @@ void Fish::updateFishDistance(std::vector<Fish*> otherFish) {
     Fish* f = otherFish[i];
     
     double dist = (this->position - f->position).norm();
+    // cout << "randomComponent: "<< randomComponent << endl;
     fishDist.push_back( dist );
+    otherFishPosition.push_back(f->position);
     double head = this->heading - f->heading;
     while (head > M_PI) head = head - M_PI;
     while (head < M_PI) head = head + M_PI;
+    // fishHead.push_back( this->heading - f->heading );
+
     fishHead.push_back( this->heading - f->heading );
   }
 }
@@ -87,13 +91,28 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
   torque = 0;
   int nearShark = 0;
   float sharkTorque;
+
   // Attractive force
   for (size_t i=0; i<fishDist.size(); ++i) {
+
+    // double randomSign = 2.f *(rand() / ( 1.f * RAND_MAX));
+    double randomComponent = 0.1f*(rand() / ( 1.f * RAND_MAX)); 
+    // cout << "randomComponent" << randomComponent << endl;
+    // if (randomSign < 1){
+    //   randomComponent = 0.02f*(rand() / ( 1.f * RAND_MAX));  
+    // }
+    // else {
+    //   randomComponent = (-1) * 0.02f*(rand() / ( 1.f * RAND_MAX));  
+    // }
+
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
-      torque += 5*fishHead[i];
+      // torque += 5*fishHead[i];
+      torque += 1.5*fishHead[i] + randomComponent;
     }
+    // cout << "fishDist[i]" << fishDist[i] << endl;
     if (fishDist[i] > .001 && fishDist[i] < repulsionThresh) {
-      torque -= 7*fishHead[i];
+      // torque -= 7*fishHead[i];
+      torque -= 0.7*fishHead[i];
     }
     // Minnors strongly repel turtles
     if (otherFish[i]->type == TURTLE && fishDist[i] < turtleThresh) {
@@ -111,6 +130,28 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
     }
   }
 
+  double countNeighbours = 0;
+  Vector2D avgPosition = Vector2D(0,0);
+  for (size_t i=0; i<fishDist.size(); ++i) {
+    if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
+      // torque += 5*fishHead[i];
+      countNeighbours++;
+      avgPosition += otherFishPosition[i];
+    }
+  }
+
+  // if (countNeighbours > 0) {
+  // avgPosition = avgPosition * (1.f / countNeighbours);
+  // Vector2D fishToGroupCenter = this->position - avgPosition;
+  // // cout << "fishToGroupCenter" << fishToGroupCenter << endl;
+  // // cout << "before group torque: " << torque << endl;
+  // double updateValue = atan2(fishToGroupCenter.y, fishToGroupCenter.x);
+  // // cout << "updateValue: " << updateValue << endl;
+  // torque += 0.01 * updateValue;
+  // // cout << "after group torque: " << torque << endl;  
+  // }
+
+
   if (nearShark) {
     torque = sharkTorque;
   }
@@ -123,9 +164,13 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
   }
 
   // Arbitrary turning limits
-  if (torque > 2) torque = 2;
-  if (torque < -2) torque = -2;
-
+  // cout << "torque:" << torque << endl;
+  // if (torque > 2) torque = 2;
+  // if (torque < -2) torque = -2;
+  double TORQUE_MAX = 1.5;
+  double TORQUE_MIN = -1.5;
+  if (torque > TORQUE_MAX) torque = TORQUE_MAX;
+  if (torque < TORQUE_MIN) torque = TORQUE_MIN;
 }
 
 float Minnow::getGoalHeading(Vector2D otherPosition) {

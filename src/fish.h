@@ -66,13 +66,15 @@ class Fish {
     // List to store distances and headings between fish
     std::vector<double> fishDist;
     std::vector<double> fishHead;
+    std::vector<Vector2D> otherFishPosition;
 
     // Constant scale factors
     double sx;
     double sy;
 
     const double attractionThresh = 60;
-    const double repulsionThresh = 35;
+    // const double repulsionThresh = 35;
+    const double repulsionThresh = 10;
     const double scareThresh = 100;
     const double turtleThresh = 100;
     const double sharkThresh = 100;
