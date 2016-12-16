@@ -41,7 +41,20 @@ void Fish::updateViewer(int w, int h) {
 void Fish::updateFish(double ts) {
 
   // Randomly vary velocity of fish
-  vel = vel + .0005 * rand() / (RAND_MAX);
+  // vel = vel + .0005 * rand() / (RAND_MAX);
+  vel = vel + .2 * rand() / (RAND_MAX);
+  // double randomSign = 2 * (rand() / ( 1.f * RAND_MAX));
+  // double randomComponent = 0.5f*(rand() / ( 1.f * RAND_MAX)); 
+  // // cout << "randomComponent" << randomComponent << endl;
+  // if (randomSign < 1){
+  //   randomComponent = 0.02f*(rand() / ( 1.f * RAND_MAX));  
+  // }
+  // else {
+  //   randomComponent = (-1) * 0.02f*(rand() / ( 1.f * RAND_MAX));  
+  // }
+  // vel = vel + randomComponent;
+
+  // cout << "vel: " << vel << endl;
   vel = min(vel, velMax);
   vel = max(vel, velMin);
 
@@ -94,25 +107,17 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
 
   // Attractive force
   for (size_t i=0; i<fishDist.size(); ++i) {
-
-    // double randomSign = 2.f *(rand() / ( 1.f * RAND_MAX));
-    double randomComponent = 0.1f*(rand() / ( 1.f * RAND_MAX)); 
-    // cout << "randomComponent" << randomComponent << endl;
-    // if (randomSign < 1){
-    //   randomComponent = 0.02f*(rand() / ( 1.f * RAND_MAX));  
-    // }
-    // else {
-    //   randomComponent = (-1) * 0.02f*(rand() / ( 1.f * RAND_MAX));  
-    // }
-
+    double randomComponent = 0.2f*(rand() / ( 1.f * RAND_MAX)); 
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
       // torque += 5*fishHead[i];
+      // 1.5
       torque += 1.5*fishHead[i] + randomComponent;
     }
     // cout << "fishDist[i]" << fishDist[i] << endl;
     if (fishDist[i] > .001 && fishDist[i] < repulsionThresh) {
       // torque -= 7*fishHead[i];
-      torque -= 0.7*fishHead[i];
+      // 0.7
+      torque -= 0.05*fishHead[i];
     }
     // Minnors strongly repel turtles
     if (otherFish[i]->type == TURTLE && fishDist[i] < turtleThresh) {
@@ -125,7 +130,6 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
       torque = 0;
       float goalHeading = getGoalHeading(otherFish[i]->position);
       sharkTorque = 250 * (heading - goalHeading);
-      //cout << sharkTorque << endl;
       nearShark = 1;
     }
   }
@@ -134,22 +138,26 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
   Vector2D avgPosition = Vector2D(0,0);
   for (size_t i=0; i<fishDist.size(); ++i) {
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
-      // torque += 5*fishHead[i];
       countNeighbours++;
       avgPosition += otherFishPosition[i];
+      
     }
   }
 
-  // if (countNeighbours > 0) {
-  // avgPosition = avgPosition * (1.f / countNeighbours);
-  // Vector2D fishToGroupCenter = this->position - avgPosition;
-  // // cout << "fishToGroupCenter" << fishToGroupCenter << endl;
-  // // cout << "before group torque: " << torque << endl;
-  // double updateValue = atan2(fishToGroupCenter.y, fishToGroupCenter.x);
-  // // cout << "updateValue: " << updateValue << endl;
-  // torque += 0.01 * updateValue;
-  // // cout << "after group torque: " << torque << endl;  
-  // }
+  if (countNeighbours > 0) {
+    avgPosition = avgPosition * (1.f / countNeighbours);
+    double crossProduct = cross(this->position, avgPosition);
+    double distanceFishCenter = (avgPosition - this->position).norm();
+    double inverseFactor;
+    if (crossProduct > 0) {
+      inverseFactor = (0.005) * (1.f/ distanceFishCenter);
+    }
+    else {
+     inverseFactor = (-0.005) * (1.f/ distanceFishCenter); 
+    }
+    torque += inverseFactor;
+    // cout << torque << endl;
+  }
 
 
   if (nearShark) {
@@ -164,11 +172,8 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
   }
 
   // Arbitrary turning limits
-  // cout << "torque:" << torque << endl;
-  // if (torque > 2) torque = 2;
-  // if (torque < -2) torque = -2;
-  double TORQUE_MAX = 1.5;
-  double TORQUE_MIN = -1.5;
+  double TORQUE_MAX = 1.0;
+  double TORQUE_MIN = -1.0;
   if (torque > TORQUE_MAX) torque = TORQUE_MAX;
   if (torque < TORQUE_MIN) torque = TORQUE_MIN;
 }
@@ -261,7 +266,7 @@ void Turtle::calculateForces() {
 void Shark::calculateForces() {
   
   // Right now, sharks just roam
-  float dTorque = .02;
+  float dTorque = .01;
   torque = torque - dTorque * rand() / (RAND_MAX) + dTorque/2.0;
 
   // With small random probability, 0 torque

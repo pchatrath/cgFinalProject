@@ -63,7 +63,10 @@ int main( int argc, char** argv ) {
   // Create minnow obejcts
   for (size_t i=0; i<numMinnows; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
+    cout << "random integer" << (rand() % 10) << endl;
+    // svg->elements[i]->style.fillColor = Color( 1,1,1 );
     Minnow* minnow = new Minnow(svg->elements[i]);
+    // svg->elements[i]->style.fillColor = Color::fromHex( fill );
     svg->fish.push_back(minnow);
   }
 
