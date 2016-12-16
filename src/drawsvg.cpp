@@ -303,34 +303,34 @@ void DrawSVG::time_event( double duration ) {
 
   SVG* svg = tabs[current_tab];
 
-  // std::vector<Shark *> sharkVector;
-  // for (size_t i=0; i<(svg->fish.size()); ++i) { 
-  //   if (doIntegration) {
-  //     Fish* f = svg->fish[i];
-  //     if (f->type == SHARK) {
-  //       Shark* s = static_cast<Shark *>(f);
-  //       sharkVector.push_back(s);
-  //     }
-  //   }
-  // }
+  std::vector<Shark *> sharkVector;
+  for (size_t i=0; i<(svg->fish.size()); ++i) { 
+    if (doIntegration) {
+      Fish* f = svg->fish[i];
+      if (f->type == SHARK) {
+        Shark* s = static_cast<Shark *>(f);
+        sharkVector.push_back(s);
+      }
+    }
+  }
 
-  // double eatFishDistThreshold = 50;
-  // for (size_t i=0; i<svg->fish.size(); ++i) { 
-  //   if (doIntegration) {
-  //     Fish* f = svg->fish[i];
-  //     if (f->type == MINNOW) {
-  //       Minnow* m = static_cast<Minnow *>(f);
-  //       for (size_t j=0; j < (sharkVector.size()); ++j) {
-  //         Shark* s = sharkVector[j];
-  //         double dist = (m->position - s->position).norm();
-  //         if (dist < eatFishDistThreshold) {
-  //           svg->fish.erase(svg->fish.begin()+i);
-  //           svg->elements.erase(svg->elements.begin() +  i);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  double eatFishDistThreshold = 50;
+  for (size_t i=0; i<svg->fish.size(); ++i) { 
+    if (doIntegration) {
+      Fish* f = svg->fish[i];
+      if (f->type == MINNOW) {
+        Minnow* m = static_cast<Minnow *>(f);
+        for (size_t j=0; j < (sharkVector.size()); ++j) {
+          Shark* s = sharkVector[j];
+          double dist = (m->position - s->position).norm();
+          if (dist < eatFishDistThreshold) {
+            svg->fish.erase(svg->fish.begin()+i);
+            svg->elements.erase(svg->elements.begin() +  i);
+          }
+        }
+      }
+    }
+  }
 
   for (size_t i=0; i<svg->fish.size(); ++i) { 
     if (doIntegration) {
