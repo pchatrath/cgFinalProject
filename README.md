@@ -19,7 +19,7 @@ Next, run the program from the command line
 
 Finally, press space bar to start and stop the animation. Click with the mouse to scare fish.
 
-### Features Implementation Detail
+### Features Implemented & Implementation Detail
 
 The following were the desired steps to be achieved by this project
 
