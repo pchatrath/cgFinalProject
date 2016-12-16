@@ -1,7 +1,7 @@
 # Partical Systems: Animating Fish Behaviors
 ### Rick Shanor and Pratik Chatrath
 
-For this assignment, we plan to to develop a 2D fishtank simulator to investigate animating natural behaviors based on partical interactions. Our final goal is to build an animation consisting of prey (schools of fish) and predators (sharks) that will forward simulate based on simple interactions between the agents in the environment. Prey will have attributes such as position, velocity, heading. Attraction and repulsion forces will generate swarm behaviors. In addition, prey will have the ability to reproduce. Predators will have similar attributes, however their forces will be generated based on their hunger level. Predators will have the ability to eat prey. A motivating image is shown below.    
+For this assignment, we  developed a  2D fishtank simulator to animate schooling/shoaling behaviors of fish based on partical interactions. Our final demo shows an animation consisting of prey (schools of fish) and predators (sharks) that is forward simulated based on simple interactions between the agents in the environment. Prey have position, velocity and heading attributes. Attraction and repulsion forces generate swarm behaviors. Predators have similar attributes. Predators have the ability to eat prey. A motivating image is shown below.    
 
 ![picture alt](https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg)
 
