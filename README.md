@@ -21,7 +21,7 @@ Finally, press space bar to start and stop the animation. Click with the mouse t
 
 ### Features Implemented & Implementation Detail
 
-The following were the desired steps to be achieved by this project
+# The following were the desired steps to be achieved by this project
 
  1. Create/find SVGs for fish and sharks and extend HW1 rasterizer as necessary to draw these files in the viewer.  
  2. Create classes for fish and sharks. Pull in relevent animation code from HW4 such that we can forward simulate objects motion based on position and velocity.
@@ -29,7 +29,8 @@ The following were the desired steps to be achieved by this project
  4. Integrate forces calculated in #3 to update the velocities in #2. At this point, we should have the minimally viable partical simulator in place. 
  5. Extend prey class for reproduction and predator class for feeding to generate interesting, natural behaviors.
 
- Following steps were implemented  at the end of the project to get the above mentioned desired behavior
+# The Following steps were implemented  at the end of the project to get the above mentioned desired behavior
+
  1. SVG files were obtained from web for fish and sharks. These files are defined in terms of polygon and are supported by our SVGParser
  2. Created Class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and sharks classes. Updated DrawSVG time_event to update posiiton, velocity, heading at each instance of time.
  3. To calcualte the updated position, velocity, heading of each fish at a time instance following rules were implemented
