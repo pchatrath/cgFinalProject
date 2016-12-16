@@ -29,7 +29,7 @@ Finally, press space bar to start and stop the animation. Click with the mouse t
  4. Integrate forces calculated in #3 to update the velocities in #2. At this point, we should have the minimally viable partical simulator in place. 
  5. Extend prey class for reproduction and predator class for feeding to generate interesting, natural behaviors.
 
-#### The Following steps were implemented  at the end of the project to get the above mentioned desired behavior
+#### The following steps were implemented  at the end of the project to get the above mentioned desired behavior
 
  1. SVG files were obtained from web for fish and sharks. These files are defined in terms of polygon and are supported by our SVGParser
  2. Created Class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and sharks classes. Updated DrawSVG time_event to update posiiton, velocity, heading at each instance of time.
@@ -40,7 +40,7 @@ Finally, press space bar to start and stop the animation. Click with the mouse t
 4. Using rules mentioned in step 3 a functioning school of fish behavior was obtained
 5. Sharks demonstrate predator behavior by consuming Minnow fishes which are very close to it
 
-Extra features implemented:
+#### Extra features implemented:
 1. Mouse clicks exhibit a fish scare behavior
 2. Added support for displaying turtle
 
@@ -51,7 +51,7 @@ Extra features implemented:
 
 ### Learning Outcomes of this assignment
 
-#### References
+### References
 
 This assignment was completed for Carnegie Mellons Computer Graphics class (15-462), taught by Professors Keenan Crane and Stelian Coros. More info can be found on the course website here: http://15462.courses.cs.cmu.edu/fall2016/home
 
