@@ -22,8 +22,8 @@ Fish::Fish(SVGElement* e, FishType T) {
   placeFish();
 
   // TODO -- Set velocity randomly
-  vel = .1;
-
+  // vel = .1;
+  vel = 0.1;
   omega = 0.0;
 
   Vector2D x1 (0,0); corners.push_back(x1);
@@ -225,10 +225,10 @@ void Shark::calculateForces() {
     torque = 0;
   }
 
-  // Useful to debug fish movements 
-  position.x = 300;
-  position.y = 300;
-  heading = 0;
+  // // Useful to debug fish movements 
+  // position.x = 300;
+  // position.y = 300;
+  // heading = 0;
 
 }
 

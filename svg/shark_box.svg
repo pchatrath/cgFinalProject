@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="New document 1">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.12374369"
+     inkscape:cx="-475.48041"
+     inkscape:cy="-208.34797"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <polygon
+       id="polygon2986"
+       points="2240,1910 2123,1892 2146,1801 1565,1708 1265,1811 501,2319 178,2442 216,2372 293,2248 388,2157 872,1787 1121,1319 989,909 914,710 998,773 1122,882 1364,1218 1514,1381 1914,1359 2186,1267 2150,1206 2120,1165 2296,1180 2358,1227 2448,1257 2787,1166 2749,1086 2720,1054 2794,1053 2935,1091 3002,1123 3219,1061 3698,955 3816,937 3790,854 3729,665 3564,198 3627,206 3975,560 4105,726 4235,890 4337,1001 4452,1025 4641,1061 4901,1066 5125,1060 5192,1070 5230,1129 5372,1257 5423,1307 5568,1410 5657,1456 5402,1649 4640,1980 3987,2228 3882,2376 3601,2909 3434,3197 3412,3187 3412,3187 3403,2809 3383,2360 3313,2188 2610,1900 "
+       style="fill:#fd5f00"
+       transform="matrix(0.11798325,0,0,0.09460152,46.484334,292.75648)" />
+  </g>
+</svg>

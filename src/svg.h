@@ -17,6 +17,7 @@ struct AquariumInfo{
   char minnowPath[18] = "../svg/minnow.svg"; // Gross. IDK why compiler needs size initialized
   char turtlePath[18] = "../svg/turtle.svg"; // Be careful if these paths change
   char sharkPath[17] = "../svg/shark.svg";
+  // char sharkPath[16] = "../svg/fish.svg";
   int numMinnows;
   int numTurtles;
   int numSharks;

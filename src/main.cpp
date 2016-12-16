@@ -26,47 +26,6 @@ int loadAquarium( DrawSVG* drawsvg) {
   return 0;
 }
 
-/*int loadDirectory( DrawSVG* drawsvg, const char* path ) {
-
-  DIR *dir = opendir (path);
-  if(dir) {
-    
-    struct dirent *ent; size_t n = 0;
-    
-    // load files
-    string pathname = path; 
-    if (pathname[pathname.back()] != '/') pathname.push_back('/');
-    while (((ent = readdir (dir)) != NULL) && (n < 9)) {
-
-      string filename = ent->d_name;
-      string filesufx = filename.substr(filename.find_last_of(".") + 1);
-      if (filesufx == "svg" ) {
-        cerr << "[DrawSVG] Loading " << filename << "... "; 
-        if (loadFile(drawsvg, (pathname + filename).c_str()) < 0) {
-          cerr << "Failed (Invalid SVG file)" << endl;
-        } else {
-          cerr << "Succeeded" << endl;
-          n++;
-        }
-      }
-    }
-
-    closedir (dir);
-
-    if (n) {
-      msg("Successfully Loaded " << n << " files from " << path);
-      return 0;
-    }
-
-    msg("No valid svg files found in " << path);
-    return -1;
-  } 
-
-  msg("Could not open directory" << path);
-  return -1;
-}*/
-
-
 int main( int argc, char** argv ) {
 
   // create viewer
@@ -79,11 +38,6 @@ int main( int argc, char** argv ) {
   viewer.set_renderer(drawsvg);
 
   // load tests
-/*  if( argc == 2 ) {
-    if (loadPath(drawsvg, argv[1]) < 0) exit(0);
-  } else {
-    msg("Usage: drawsvg <path to test file or directory>"); exit(0);
-  }*/
 
   if(argc != 4) {
     msg("Usage: ./aquarium #fish #sharks #turtles "); 
