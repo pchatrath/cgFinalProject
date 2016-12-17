@@ -1,7 +1,7 @@
 # Partical Systems: Animating Fish Behaviors
 ### Rick Shanor and Pratik Chatrath
 <p align="justify">
-For this assignment, we developed a 2D fish-tank simulator to animate schooling/shoaling behavior of fishes based on particle interactions. Our final demo shows an animation consisting of prey (schools of fishes) and predators (sharks) that is forward simulated based on simple interactions between the agents in the environment. Prey have position, velocity and heading attributes. Attraction and repulsion forces generate swarm behaviors. Predators have similar attributes. Predators have the ability to eat prey. Additionally, mouse click on a particular position scares a fish. A motivating image is shown below.    
+For this assignment, we developed a 2D fish-tank simulator to animate schooling/shoaling behavior of fishes based on particle interactions. Our final demo shows an animation consisting of prey (schools of fishes) and predators (sharks) that is forward simulated based on simple interactions between the agents in the environment. Prey have position, velocity and heading attributes. Attraction and repulsion forces generate swarm behaviors. Predators have similar attributes. Predators have the ability to eat prey. Additionally, mouse click on a particular position scares nearby fish. A motivating image is shown below. Most of our code is in the files fish.cpp and fish.h. We also extended the viewer to support animation.    
 </p>
 <div align="center">
 <img src ="https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg" />
@@ -18,7 +18,7 @@ Next, run the program from the command line
 ./aquarium #fish #turtles #sharks
 ```
 
- Finally, press spacebar to start and stop the animation. Click with the mouse to scare fish.
+ Finally, press spacebar to start and stop the animation. Click with the mouse to scare fish. 
  
 ### Demo Videos
 Video demonstrating the simulation initialized with: 50 Minnow fishes, 1 turtle and 4 sharks. Fishes in the same group have same color 
@@ -35,7 +35,7 @@ Scare Feature - (https://youtu.be/imRcG70os7w)
 
 ### Implementation Details
 
-#### TThe following sequence of steps were proposed for implementation of the project:
+#### The following sequence of steps were proposed for implementation of the project:
 
 1. Create/find SVGs for fish and sharks and extend HW1 rasterizer as necessary to draw these files in the viewer.
 2. Create classes for fish and sharks. Pull in relevant animation code from HW4 such that we can forward simulate objects motion based on position and velocity.
@@ -44,8 +44,9 @@ Scare Feature - (https://youtu.be/imRcG70os7w)
 5. Extend prey class for reproduction and predator class for feeding to generate interesting, natural behaviors.
 
 #### The following sequence of steps were actually followed during the implementation of this project:
-1. SVG files  for fish and sharks were obtained from web. Out svg parser supports svg files with polygon points list. Hence fish and shark images were convered from jpg to svg. The generated svg files are defined in terms of polygon and are supported by our SVGParser
-2. Created Class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and shark classes. Updated DrawSVG time_event to update position, velocity, heading at each instance of time.
+
+1. SVG files for fish and sharks were generated from PNGs. Our svg parser supports svg files with polygon points list. The generated svg files are defined in terms of polygon and are supported by our SVGParser
+2. Created class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and shark classes. Updated DrawSVG time_event to update position, velocity, heading at each instance of time.
 3. To calculate the updated position, velocity, heading of each fish at a time instance following rules were implemented 
    * Fish of same kind attract each other
    * If fishes of same type come very close to each other they experience repulsive forces 
