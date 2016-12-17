@@ -26,10 +26,10 @@ Video demonstrating the simulation initialized with: 50 Minnow fishes, 1 turtle 
 
 Links to more videos:
 <div align="left">
-[Scare Feature] (https://youtu.be/imRcG70os7w)
+Scare Feature - (https://youtu.be/imRcG70os7w)
 </div>
 <div align="left">
-[100 fishes] (https://youtu.be/7FLz5lNjPaA)
+100 fishes - (https://youtu.be/7FLz5lNjPaA)
 </div>
 
 
