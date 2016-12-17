@@ -3,8 +3,9 @@
 <p align="justify">
 For this assignment, we developed a 2D fish-tank simulator to animate schooling/shoaling behavior of fishes based on particle interactions. Our final demo shows an animation consisting of prey (schools of fishes) and predators (sharks) that is forward simulated based on simple interactions between the agents in the environment. Prey have position, velocity and heading attributes. Attraction and repulsion forces generate swarm behaviors. Predators have similar attributes. Predators have the ability to eat prey. Additionally, mouse click on a particular position scares a fish. A motivating image is shown below.    
 </p>
-![picture alt](https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg)
-<div style="text-align:center"><img src ="https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg" /></div>
+<div align="center">
+<img src ="https://s-media-cache-ak0.pinimg.com/564x/b4/87/a1/b487a19e031b7d220e5638cd5c69c109.jpg" />
+</div>
 ### User Guide - How to run the animation
 
 First build the project
