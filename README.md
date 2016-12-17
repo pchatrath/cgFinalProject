@@ -24,14 +24,14 @@ Next, run the program from the command line
 
 #### TThe following sequence of steps were proposed for implementation of the project:
 
- 1. Create/find SVGs for fish and sharks and extend HW1 rasterizer as necessary to draw these files in the viewer.
+1. Create/find SVGs for fish and sharks and extend HW1 rasterizer as necessary to draw these files in the viewer.
 2. Create classes for fish and sharks. Pull in relevant animation code from HW4 such that we can forward simulate objects motion based on position and velocity.
 3. Write code calculating the repulsive and attractive forces between agents in the environment. Using a K-D tree structure may be required to search efficiently.
 4. Integrate forces calculated in #3 to update the velocities in #2. At this point, we should have the minimally viable particle simulator in place.
 5. Extend prey class for reproduction and predator class for feeding to generate interesting, natural behaviors.
 
 #### The following sequence of steps were actually followed during the implementation of this project:
- 1. SVG files were obtained from web for fish and sharks. These files are defined in terms of polygon and are supported by our SVGParser
+1. SVG files were obtained from web for fish and sharks. These files are defined in terms of polygon and are supported by our SVGParser
 2. Created Class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and sharks classes. Updated DrawSVG time_event to update position, velocity, heading at each instance of time.
 3. To calculate the updated position, velocity, heading of each fish at a time instance following rules were implemented 
     a. Fish of same type attract each other. 
