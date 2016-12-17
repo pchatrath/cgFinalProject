@@ -314,6 +314,9 @@ void DrawSVG::time_event( double duration ) {
     }
   }
 
+
+  // if Minnow fish is within eatFishDistThreshold radius
+  // of shark shark eats fish
   double eatFishDistThreshold = 50;
   for (size_t i=0; i<svg->fish.size(); ++i) { 
     if (doIntegration) {
@@ -332,6 +335,7 @@ void DrawSVG::time_event( double duration ) {
     }
   }
 
+  // updates to forces, color, position, heading at each time instance
   for (size_t i=0; i<svg->fish.size(); ++i) { 
     if (doIntegration) {
       Fish* f = svg->fish[i];
@@ -340,6 +344,7 @@ void DrawSVG::time_event( double duration ) {
         m->updateFishDistance(svg->fish);
         m->calculateForces(svg->fish);
         m->updateFish(duration);
+        m->updateColor(svg->elements, svg->fish, i);
       } else if (f->type == TURTLE) {
         Turtle* t = static_cast<Turtle *>(f);
         t->calculateForces();

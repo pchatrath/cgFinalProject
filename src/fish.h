@@ -92,8 +92,6 @@ class Minnow: public Fish {
         velMax = 0.8;
         velMin = 0.4;
         vel = (velMin + velMax)/2;
-        // velMax = 5 / 35.0;
-        // velMin = 2.5 / 35.0;
     }
     ~Minnow() {};
 
@@ -103,6 +101,8 @@ class Minnow: public Fish {
 
     float getGoalHeading(Vector2D otherPosition);
 
+    void updateColor(std::vector<SVGElement*> elements, std::vector<Fish*> otherFish, size_t i);
+
     Vector2D scarePt;
     double scareDistThresh = 150;
     float scareHeading;
@@ -111,16 +111,10 @@ class Minnow: public Fish {
 class Shark: public Fish {
   public:
     Shark(SVGElement* e, FishType t = SHARK): Fish(e, t) {
-        // sx = 0.02;
-        // sy = 0.02;
         sx = 0.011;
         sy = 0.011;
-        // sx = 0.07;
-        // sy = 0.07;
         velMax = 0.8;
         velMin = 0.4;
-        // velMax = 5 / 25.0;
-        // velMin = 2.5 / 25.0;
         vel = (velMin + velMax)/2;
     }
     ~Shark() {};
@@ -135,8 +129,6 @@ class Turtle: public Fish {
         sy = 0.04;
         velMax = 0.8;
         velMin = 0.4;
-        // velMax = 2 / 45.0;
-        // velMin = 1 / 45.0;
         vel = (velMin + velMax)/2;
     }
     ~Turtle() {};

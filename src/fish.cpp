@@ -108,15 +108,11 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
   // Attractive force
   for (size_t i=0; i<fishDist.size(); ++i) {
     double randomComponent = 0.2f*(rand() / ( 1.f * RAND_MAX)); 
+    // Minnow attracts other minnow fishes
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
-      // torque += 5*fishHead[i];
-      // 1.5
       torque += 1.5*fishHead[i] + randomComponent;
     }
-    // cout << "fishDist[i]" << fishDist[i] << endl;
     if (fishDist[i] > .001 && fishDist[i] < repulsionThresh) {
-      // torque -= 7*fishHead[i];
-      // 0.7
       torque -= 0.05*fishHead[i];
     }
     // Minnors strongly repel turtles
@@ -134,16 +130,17 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
     }
   }
 
+  // find average position of group center
   double countNeighbours = 0;
   Vector2D avgPosition = Vector2D(0,0);
   for (size_t i=0; i<fishDist.size(); ++i) {
     if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
       countNeighbours++;
-      avgPosition += otherFishPosition[i];
-      
+      avgPosition += otherFishPosition[i];      
     }
   }
 
+  // torque component to move fish towards group center
   if (countNeighbours > 0) {
     avgPosition = avgPosition * (1.f / countNeighbours);
     double crossProduct = cross(this->position, avgPosition);
@@ -156,7 +153,6 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
      inverseFactor = (-0.005) * (1.f/ distanceFishCenter); 
     }
     torque += inverseFactor;
-    // cout << torque << endl;
   }
 
 
@@ -176,6 +172,24 @@ void Minnow::calculateForces(std::vector<Fish*> otherFish) {
   double TORQUE_MIN = -1.0;
   if (torque > TORQUE_MAX) torque = TORQUE_MAX;
   if (torque < TORQUE_MIN) torque = TORQUE_MIN;
+}
+
+void Minnow::updateColor(std::vector<SVGElement*> elements, std::vector<Fish*> otherFish, size_t index) {
+  double countNeighbours = 0;
+  Color avgColor = Color();
+  // color of fish = average color of group
+  for (size_t i=0; i<fishDist.size(); ++i) {
+    if (fishDist[i] > .001 && fishDist[i] < attractionThresh) {
+      if (not(otherFish[i]->type == TURTLE || otherFish[i]->type == SHARK)) {
+        countNeighbours++;
+        avgColor += elements[i]->style.fillColor;
+      }
+    }
+  }
+
+  if (countNeighbours > 0) {
+  elements[index]->style.fillColor = avgColor * (1.f / countNeighbours);
+  }
 }
 
 float Minnow::getGoalHeading(Vector2D otherPosition) {

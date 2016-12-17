@@ -63,16 +63,29 @@ int main( int argc, char** argv ) {
   // Create minnow obejcts
   for (size_t i=0; i<numMinnows; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
-    cout << "random integer" << (rand() % 10) << endl;
-    // svg->elements[i]->style.fillColor = Color( 1,1,1 );
+    int randomInt = rand() % 4 +1; // int between 1-4
+
+    // initialize fish with one of the 4 color
+    if (randomInt == 1) {
+      svg->elements[i]->style.fillColor = Color( 0.8,0.1,0.1 );
+    }
+    else if (randomInt == 2) {
+      svg->elements[i]->style.fillColor = Color( 0.541176,0.168627, 0.886275);
+    }
+    else if (randomInt == 3) {
+      svg->elements[i]->style.fillColor = Color( 0.8,0.8,0.1 );
+    }
+    else {
+      svg->elements[i]->style.fillColor = Color( 0.133333, 0.545098, 0.133333);
+    }
     Minnow* minnow = new Minnow(svg->elements[i]);
-    // svg->elements[i]->style.fillColor = Color::fromHex( fill );
     svg->fish.push_back(minnow);
   }
 
   // Create turtle obejcts
   for (size_t i=numMinnows; i<numMinnows+numTurtles; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
+    svg->elements[i]->style.fillColor = Color( 0.33333, 0.33333, 0.33333);
     Turtle* turtle = new Turtle(svg->elements[i]);
     svg->fish.push_back(turtle);
   }
@@ -81,6 +94,7 @@ int main( int argc, char** argv ) {
   for (size_t i=numMinnows+numTurtles; i<numMinnows+numSharks+numTurtles; ++i) {
     SVG* svg = drawsvg->tabs[drawsvg->current_tab];
     Shark* shark = new Shark(svg->elements[i]);
+    svg->elements[i]->style.fillColor = Color( 0.1,0.1,0.1 );
     svg->fish.push_back(shark);
   }
 
