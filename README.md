@@ -21,8 +21,9 @@ Next, run the program from the command line
  Finally, press spacebar to start and stop the animation. Click with the mouse to scare fish.
  
  ### Demo Videos
- 
+ <div align="center">
  [![Alt text] (https://img.youtube.com/vi/-whSFRU2zZg/0.jpg)] (https://youtu.be/-whSFRU2zZg)
+</div>
 
 ### Implementation Details
 
