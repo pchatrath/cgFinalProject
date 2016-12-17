@@ -22,7 +22,7 @@ Next, run the program from the command line
  
  ### Demo Videos
  
- [![Alt text] (https://img.youtube.com/vi/VID/0.jpg)] (https://youtu.be/-whSFRU2zZg)
+ [![Alt text] (https://img.youtube.com/vi/-whSFRU2zZg/0.jpg)] (https://youtu.be/-whSFRU2zZg)
 
 ### Implementation Details
 
