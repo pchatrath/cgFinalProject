@@ -31,23 +31,23 @@ Next, run the program from the command line
 5. Extend prey class for reproduction and predator class for feeding to generate interesting, natural behaviors.
 
 #### The following sequence of steps were actually followed during the implementation of this project:
-1. SVG files were obtained from web for fish and sharks. These files are defined in terms of polygon and are supported by our SVGParser
-2. Created Class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and sharks classes. Updated DrawSVG time_event to update position, velocity, heading at each instance of time.
+1. SVG files  for fish and sharks were obtained from web. Out svg parser supports svg files with polygon points list. Hence fish and shark images were convered from jpg to svg. The generated svg files are defined in terms of polygon and are supported by our SVGParser
+2. Created Class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and shark classes. Updated DrawSVG time_event to update position, velocity, heading at each instance of time.
 3. To calculate the updated position, velocity, heading of each fish at a time instance following rules were implemented 
-   * Fish of same type attract each other. 
-   * If fishes of same type come very close to each other they experience repulsion forces 
-   * Minnow try to avoid shark
+   * Fish of same kind attract each other
+   * If fishes of same type come very close to each other they experience repulsive forces 
+   * Minnow fish tries to avoid shark
 4. Using rules mentioned in step 3 a functioning school of fish behavior was obtained
-5. Sharks demonstrate predator behavior by consuming Minnow fishes which are very close to it
+5. Sharks consume Minnow fishes which are very close to it
 
 #### Extra features implemented:
 1. Mouse clicks exhibit a fish scare behavior
 2. Added support for displaying turtle
-3. Fish in the same group have same color - average color of all the fishes in group
+3. Fish of the same group have same color (average color of all the fishes in group)
 
 ### Difficulties in implementation
-1. We faced issue configuring fish movement to a bounded fish tank. We got rid of this issue by creating unbounded fish tank. The complete screen is now used as fish tank and fish can enter/exit from any direction
-2. Secondly for implementing behavior of Minnow fishes avoiding sharks, minnow fishes did not avoid sharks. The minnow fishes avoided some part behind the shark in the svg. We tried to re-center the shark svg so that the position of shark corresponds to center of shark in the svg. However we were not able to re-center the svg. We worked around this issue by creating a bounding box around the shark and making the fish to avoid the bounding box.
+1. We faced issue bounding fish movement to a confined fish tank. We got rid of this issue by creating unbounded fish tank. The complete screen is now used as fish tank and fish can enter/exit from any direction
+2. Secondly, making Minnow fish avoid sharks wasnt easy. The minnow fishes passed through sharks. We worked around this issue by creating a bounding box around the shark svg and making the fish avoid the bounding box.
 3. The most difficult part was to implement natural/realistic fish behavior. We worked on fine tuning the attraction, repulsion, and other constants related to updating position, velocity, heading to get realistic behavior.
 
 ### Learning outcomes of this assignment
