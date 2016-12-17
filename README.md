@@ -23,7 +23,7 @@ Next, run the program from the command line
 ### Demo Videos
 Video demonstrating the simulation initialized with: 50 Minnow fishes, 1 turtle and 4 sharks. Fishes in the same group have same color 
 <div align="center">
- [![Alt text] (https://img.youtube.com/vi/-whSFRU2zZg/maxresdefault.jpg)] (https://youtu.be/-whSFRU2zZg)
+[![Alt text] (https://img.youtube.com/vi/-whSFRU2zZg/maxresdefault.jpg)] (https://youtu.be/-whSFRU2zZg)
 </div>
 
 Links to more videos:
