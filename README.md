@@ -34,9 +34,9 @@ Next, run the program from the command line
 1. SVG files were obtained from web for fish and sharks. These files are defined in terms of polygon and are supported by our SVGParser
 2. Created Class for fish. Each fish has its position, velocity and heading. Extended Fish class to Minnow (kind of fish) and sharks classes. Updated DrawSVG time_event to update position, velocity, heading at each instance of time.
 3. To calculate the updated position, velocity, heading of each fish at a time instance following rules were implemented 
-    a. Fish of same type attract each other. 
-    b. If fishes of same type come very close to each other they experience repulsion forces 
-    c. Minnow try to avoid shark
+   * Fish of same type attract each other. 
+   * If fishes of same type come very close to each other they experience repulsion forces 
+   * Minnow try to avoid shark
 4. Using rules mentioned in step 3 a functioning school of fish behavior was obtained
 5. Sharks demonstrate predator behavior by consuming Minnow fishes which are very close to it
 
