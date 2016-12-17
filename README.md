@@ -21,9 +21,15 @@ Next, run the program from the command line
  Finally, press spacebar to start and stop the animation. Click with the mouse to scare fish.
  
  ### Demo Videos
+1. Video demonstrating the simulation initialized with: 50 Minnow fishes, 1 turtle and 4 sharks. Fishes in the same group have same color 
  <div align="center">
- [![Alt text] (https://img.youtube.com/vi/-whSFRU2zZg/0.jpg)] (https://youtu.be/-whSFRU2zZg)
+ [![Alt text] (https://img.youtube.com/vi/-whSFRU2zZg/maxresdefault.jpg)] (https://youtu.be/-whSFRU2zZg)
 </div>
+
+Links to more videos:
+[Scare Feature] (https://youtu.be/imRcG70os7w)
+[100 fishes] (https://youtu.be/7FLz5lNjPaA)
+
 
 ### Implementation Details
 
